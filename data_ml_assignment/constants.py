@@ -10,6 +10,7 @@ PROCESSED_DATA_PATH = PARENT_PATH / "processed/"
 
 MODELS_PATH = PARENT_PATH / "models/"
 NAIVE_BAYES_PIPELINE_PATH = MODELS_PATH / "naive_bayes_pipeline.joblib"
+LR_PIPELINE_PATH = MODELS_PATH / "LR.joblib"
 REPORTS_PATH = PARENT_PATH / "reports/"
 CM_PLOT_PATH = REPORTS_PATH / "cm_plot.png"
 
