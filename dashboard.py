@@ -10,11 +10,32 @@ import matplotlib.pyplot as plt
 
 from data_ml_assignment.components.eda import show_eda
 from data_ml_assignment.training.train_pipeline import TrainingPipeline
-from data_ml_assignment.constants import CM_PLOT_PATH, LABELS_MAP, SAMPLES_PATH, RAW_DATASET_PATH, DATA_PATH
+from data_ml_assignment.constants import CM_PLOT_PATH, LABELS_MAP, SAMPLES_PATH, RAW_DATASET_PATH, DATA_PATH, API_BASE_URL, INFERENCE_API_URL, PREDICTIONS_BASE_URL
+
 
 
 st.title("Resume Classification Dashboard")
 st.sidebar.title("Dashboard Modes")
+
+
+# API_URL = "http://localhost:9002/api"
+
+def display_predictions():
+    try:
+        response = requests.get(PREDICTIONS_BASE_URL)
+        response.raise_for_status()
+        data = response.json()
+        if data:
+            df = pd.DataFrame(data)
+            st.dataframe(df)
+        else:
+            st.write("No predictions found.")
+    except requests.exceptions.RequestException as e:
+        st.error(f"Failed to fetch predictions: {e}")
+    except Exception as e:
+        st.error(f"An unexpected error occurred: {e}")
+
+
 
 sidebar_options = st.sidebar.selectbox("Options", ("EDA", "Training", "Inference"))
 
@@ -63,7 +84,6 @@ else:
     st.header("Resume Inference")
     st.info("This section simplifies the inference process. Choose a test resume and observe the label that your trained pipeline will predict.")
 
-
     sample = st.selectbox(
         "Resume samples for inference",
         tuple(LABELS_MAP.values()),
@@ -80,9 +100,9 @@ else:
                     sample_text = file.read()
 
                 result = requests.post(
-                    "http://localhost:9000/api/inference", json={"text": sample_text}
+                    INFERENCE_API_URL, json={"text": sample_text}
                 )
-                result.raise_for_status()  # On assure que l'appel API a réussi
+                result.raise_for_status()
                 st.success("Done!")
                 label = LABELS_MAP.get(int(float(result.text)))
                 st.metric(label="Status", value=f"Resume label: {label}")
@@ -91,3 +111,7 @@ else:
             except Exception as e:
                 st.error("Failed to call Inference API!")
                 st.exception(e)
+
+    if st.button("View Saved Predictions"):
+        display_predictions()
+
