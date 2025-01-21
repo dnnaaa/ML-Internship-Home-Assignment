@@ -37,13 +37,13 @@
 ## Assignment Process
 
 •	Refactor the dashboard component to replace the existing single long Python file, which is unoptimized, hard to read, maintain, and upgrade, with a suitable solution that optimizes the code and improves readability:
--	Create a folder named Component that contains all the necessary components for use in the dashboard.py file:
--	Include a base_component.py file, which serves as an abstraction or blueprint for components in the application.
-- Add a component_manager.py file, which acts as a feature for easily adding or removing components in the dashboard.
-- Include an eda_component.py file for the Exploratory Data Analysis component.
-- Add an inference_component.py file for the Inference component.
-- Include a training_component.py file for the Training component.
- o	Create a folder named helperfunction to store functions used in the Exploratory Data Analysis component, such as dataset_advanced_analysis.py, dataset_distribution.py, and dataset_overview.py. These functions are stored here to avoid having one long Python file.
+ -	Create a folder named Component that contains all the necessary components for use in the dashboard.py file:
+ -	Include a base_component.py file, which serves as an abstraction or blueprint for components in the application.
+ - Add a component_manager.py file, which acts as a feature for easily adding or removing components in the dashboard.
+ - Include an eda_component.py file for the Exploratory Data Analysis component.
+ - Add an inference_component.py file for the Inference component.
+ - Include a training_component.py file for the Training component.
+ - 	Create a folder named helperfunction to store functions used in the Exploratory Data Analysis component, such as dataset_advanced_analysis.py, dataset_distribution.py, and dataset_overview.py. These functions are stored here to avoid having one long Python file.
 •	Create a folder named utils inside the ML-Internship-Home-Assignment directory. This folder will contain a file named helpers.py:
   -	The helpers.py file includes functions such as display_metrics(), load_sample_text(), run_inference(), save_inference(), and others. These functions will be used in both the inference and training components.
 •	Update the train_pipeline.py file:
