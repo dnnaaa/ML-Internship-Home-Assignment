@@ -4,7 +4,7 @@
 - Python 3.9 or higher.
 
 #### Create new environment
--  py -3.11 -m venv projectenv (use version of Python less than 3.12 to avoid the problem of installing the packages "numpy")
+-  py -3.11 -m venv projectenv (use version of Python less than 3.12 to avoid the problem of installing the packages , for example "numpy=1.24.3".)
 #### Install Poetry on your global Python setup
 -  pip install poetry.
 
