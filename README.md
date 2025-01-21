@@ -30,33 +30,42 @@
 ### 1 - Exploratory Data Analysis
 
 
-![](./static/eda.png)
-
+![](./static/eda1.png)
+##
+![](./static/eda2.png)
+##
+![](./static/eda3.png)
+##
+![](./static/eda4.png)
+##
+![](./static/eda5.png)
+##
+![](./static/eda6.png)
+##
+![](./static/eda7.png)
+##
+![](./static/eda8.png)
+##
+![](./static/eda9.png)
 
 ### 2 - Training 
 
 
-![](./static/training.png)
-
-
-
-![](./static/training_current.png)
-
-
-
-![](./static/training_result.png)
+![](./static/tr1.png)
+##
+![](./static/tr2.png)
+##
 
 ### 3 - Inference
 
 
 
-![](./static/inference.png)
-
-
-
-![](./static/inference_done.png)
-
-
+![](./static/inf1.png)
+##
+![](./static/inf2.png)
+##
+![](./static/inf3.png)
+##
 
 Feel free to reach out for questions or feedback:
 - **Email:**  [anouzlay@gmail.com](mailto:anouzlay@gmail.com)
