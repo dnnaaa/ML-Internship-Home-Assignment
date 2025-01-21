@@ -7,7 +7,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import Pipeline
-import joblib  # For saving and loading models
+import joblib  
 
 from data_ml_assignment.constants import (
     RAW_DATASET_PATH,
@@ -33,15 +33,12 @@ class TrainingPipeline:
         self.vectorizer = None
 
     def train(self, serialize: bool = True, model_name: str = "model"):
-        # Vectorization: Use TF-IDF instead of CountVectorizer
         self.vectorizer = TfidfVectorizer(max_features=5000, stop_words="english")
         x_train_vec = self.vectorizer.fit_transform(self.x_train)
         x_test_vec = self.vectorizer.transform(self.x_test)
 
-        # Model: Use Logistic Regression
         self.model = LogisticRegression()
 
-        # Hyperparameter Tuning (Example for Logistic Regression)
         param_grid = {
             "C": [0.1, 1, 10],
             "penalty": ["l2"],  # Use l2 penalty
@@ -50,10 +47,8 @@ class TrainingPipeline:
         grid_search = GridSearchCV(self.model, param_grid, cv=3, scoring="f1_weighted")
         grid_search.fit(x_train_vec, self.y_train)
 
-        # Use the best model from grid search
         self.model = grid_search.best_estimator_
 
-        # Save the model and vectorizer if serialize is True
         if serialize:
             model_path = MODELS_PATH / f"{model_name}.joblib"
             joblib.dump(
@@ -88,3 +83,5 @@ if __name__ == "__main__":
     accuracy, f1_score = tp.get_model_perfomance()
     tp.render_confusion_matrix()
     print(f"ACCURACY = {accuracy}, F1 SCORE = {f1_score}")
+
+
