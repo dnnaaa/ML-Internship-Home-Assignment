@@ -10,4 +10,10 @@ def server() -> FastAPI:
         docs_url=f"{API_PREFIX}/docs",
     )
     app.include_router(inference_router, prefix=API_PREFIX)
+
+    # Add a default root route
+    @app.get("/")
+    def read_root():
+        return {"message": f"Welcome to {APP_NAME} API"}
+
     return app

@@ -1,8 +1,10 @@
-import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.metrics import accuracy_score, f1_score, confusion_matrix
-from sklearn.model_selection import train_test_split
+import pandas as pd # type: ignore
+import matplotlib.pyplot as plt # type: ignore
+import numpy as np # type: ignore
 
+
+from sklearn.model_selection import train_test_split, cross_val_score, learning_curve # type: ignore
+from sklearn.metrics import accuracy_score, f1_score, confusion_matrix # type: ignore
 from data_ml_assignment.constants import (
     RAW_DATASET_PATH,
     MODELS_PATH,
@@ -11,6 +13,10 @@ from data_ml_assignment.constants import (
 )
 from data_ml_assignment.models.naive_bayes_model import NaiveBayesModel
 from data_ml_assignment.utils.plot_utils import PlotUtils
+from data_ml_assignment.models.svm_model import SVMModel
+from data_ml_assignment.models.RandomForest_model import RandomForestModel
+from data_ml_assignment.models.LogisticRegression_model import LogisticRegressionModel 
+from data_ml_assignment.models.xgbc_model import XGBCModel 
 
 
 class TrainingPipeline:
@@ -27,18 +33,26 @@ class TrainingPipeline:
         self.model = None
 
     def train(self, serialize: bool = True, model_name: str = "model"):
-        self.model = NaiveBayesModel()
+        self.model = RandomForestModel()
         self.model.fit(self.x_train, self.y_train)
 
         model_path = MODELS_PATH / f"{model_name}.joblib"
         if serialize:
             self.model.save(model_path)
 
-    def get_model_perfomance(self) -> tuple:
-        predictions = self.model.predict(self.x_test)
-        return accuracy_score(self.y_test, predictions), f1_score(
-            self.y_test, predictions, average="weighted"
-        )
+    def get_model_perfomance(self) -> dict:
+            predictions_test = self.model.predict(self.x_test)
+            predictions_train = self.model.predict(self.x_train)
+
+            train_accuracy = accuracy_score(self.y_train, predictions_train)
+            test_accuracy = accuracy_score(self.y_test, predictions_test)
+            test_f1 = f1_score(self.y_test, predictions_test, average="weighted")
+
+            return {
+                train_accuracy,
+                test_accuracy,
+                test_f1,
+            }
 
     def render_confusion_matrix(self, plot_name: str = "cm_plot"):
         predictions = self.model.predict(self.x_test)
@@ -46,7 +60,7 @@ class TrainingPipeline:
         plt.rcParams["figure.figsize"] = (14, 10)
 
         PlotUtils.plot_confusion_matrix(
-            cm, classes=list(LABELS_MAP.values()), title="Naive Bayes"
+            cm, classes=list(LABELS_MAP.values()), title="RandomForestModel"
         )
 
         plot_path = REPORTS_PATH / f"{plot_name}.png"
@@ -54,9 +68,13 @@ class TrainingPipeline:
         plt.show()
 
 
+
+
 if __name__ == "__main__":
     tp = TrainingPipeline()
-    tp.train(serialize=True)
+    tp.train(serialize=True, model_name="RandomForestModel")
+
     accuracy, f1_score = tp.get_model_perfomance()
-    tp.render_confusion_matrix()
     print(f"ACCURACY = {accuracy}, F1 SCORE = {f1_score}")
+
+    
