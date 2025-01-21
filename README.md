@@ -47,6 +47,7 @@
  - 	Create a folder named helperfunction to store functions used in the Exploratory Data Analysis component, such as dataset_advanced_analysis.py, dataset_distribution.py, and dataset_overview.py. These functions are stored here to avoid having one long Python file.
 •	Create a folder named utils inside the ML-Internship-Home-Assignment directory. This folder will contain a file named helpers.py:
   -	The helpers.py file includes functions such as display_metrics(), load_sample_text(), run_inference(), save_inference(), and others. These functions will be used in both the inference and training components.
+
 •	Update the train_pipeline.py file:
   -	Replace the NaiveBayesModel with a new model that combines the logistic regression model with TfidfVectorizer and the GridSearchCV algorithm to improve prediction results.
   -	Fix the render_confusion_matrix() function to display the confusion matrix for the predicted results.
