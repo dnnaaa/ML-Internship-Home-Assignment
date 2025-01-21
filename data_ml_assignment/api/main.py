@@ -10,6 +10,6 @@ if __name__ == "__main__":
     uvicorn.run(
         serving_app,
         host="localhost",
-        port=9003,
+        port=9004,
         log_level="info",
     )

@@ -6,19 +6,12 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-
-
 from data_ml_assignment.components.eda import show_eda
 from data_ml_assignment.training.train_pipeline import TrainingPipeline
 from data_ml_assignment.constants import CM_PLOT_PATH, LABELS_MAP, SAMPLES_PATH, RAW_DATASET_PATH, DATA_PATH, API_BASE_URL, INFERENCE_API_URL, PREDICTIONS_BASE_URL
 
-
-
 st.title("Resume Classification Dashboard")
 st.sidebar.title("Dashboard Modes")
-
-
-# API_URL = "http://localhost:9002/api"
 
 def display_predictions():
     try:
@@ -35,8 +28,6 @@ def display_predictions():
     except Exception as e:
         st.error(f"An unexpected error occurred: {e}")
 
-
-
 sidebar_options = st.sidebar.selectbox("Options", ("EDA", "Training", "Inference"))
 
 if sidebar_options == "EDA":
@@ -46,7 +37,6 @@ if sidebar_options == "EDA":
     dataset = pd.read_csv(RAW_DATASET_PATH)
     show_eda(dataset)
 
-    
 elif sidebar_options == "Training":
     st.header("Pipeline Training")
     st.info(
@@ -64,8 +54,7 @@ elif sidebar_options == "Training":
                 tp = TrainingPipeline()
                 tp.train(serialize=serialize, model_name=name)
                 tp.render_confusion_matrix()
-                train_accuracy,test_accuracy, f1 = tp.get_model_perfomance()
-                
+                train_accuracy, test_accuracy, f1 = tp.get_model_perfomance()
                 
                 col1, col2 = st.columns(2)
 
@@ -75,7 +64,6 @@ elif sidebar_options == "Training":
 
                 st.image(Image.open(CM_PLOT_PATH), width=850)
                 
-
             except Exception as e:
                 st.error("Failed to train the pipeline!")
                 st.exception(e)
@@ -104,7 +92,15 @@ else:
                 )
                 result.raise_for_status()
                 st.success("Done!")
-                label = LABELS_MAP.get(int(float(result.text)))
+                
+                # Parse the JSON response
+                result_json = result.json()
+                prediction = result_json.get("prediction")
+                
+                # Convert the prediction to a float and then to an int
+                prediction_value = int(float(prediction))
+                label = LABELS_MAP.get(prediction_value)
+                
                 st.metric(label="Status", value=f"Resume label: {label}")
             except requests.exceptions.RequestException as e:
                 st.error(f"Error in API request: {e}")
@@ -114,4 +110,3 @@ else:
 
     if st.button("View Saved Predictions"):
         display_predictions()
-

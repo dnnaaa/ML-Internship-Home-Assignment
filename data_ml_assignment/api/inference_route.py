@@ -1,19 +1,20 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import Dict
 import logging
+import numpy as np
 
 from data_ml_assignment.api.schemas import Resume
 from data_ml_assignment.models.database import SessionLocal, PredictionResult
 from data_ml_assignment.models.naive_bayes_model import NaiveBayesModel
 from data_ml_assignment.constants import NAIVE_BAYES_PIPELINE_PATH
 
+
 model = NaiveBayesModel()
 model.load(NAIVE_BAYES_PIPELINE_PATH)
 
 inference_router = APIRouter()
 
-# Dependency to get database session
 def get_db():
     db = SessionLocal()
     try:
@@ -31,18 +32,24 @@ async def inference(request: Dict[str, str], db: Session = Depends(get_db)):
         # Get prediction using the model
         prediction = model.predict([resume_text])[0]
         
-        # Save prediction to database
-        new_prediction = PredictionResult(
-            resume_text=resume_text,
-            prediction=str(prediction)
-        )
-        db.add(new_prediction)
+        # Convert numpy.int64 to native Python int
+        if isinstance(prediction, np.integer):
+            prediction = int(prediction)
+        
+        # Save to database
+        db_prediction = PredictionResult(resume_text=resume_text, prediction=str(prediction))
+        db.add(db_prediction)
         db.commit()
+        db.refresh(db_prediction)
         
-        logging.info(f"Prediction saved successfully: {prediction}")
-        return prediction
+        # Query all predictions from the database
+        predictions = db.query(PredictionResult).all()
         
+        return {
+            "resume_text": resume_text,
+            "prediction": prediction,
+            "all_predictions": [{"resume_text": p.resume_text, "prediction": p.prediction} for p in predictions]
+        }
     except Exception as e:
-        logging.error(f"Error in inference: {e}")
         db.rollback()
-        raise
+        raise HTTPException(status_code=500, detail=str(e))

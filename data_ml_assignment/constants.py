@@ -15,7 +15,7 @@ CM_PLOT_PATH = REPORTS_PATH / "cm_plot.png"
 
 DATABASE_URL = f"sqlite:///{PARENT_PATH}/predictions.db"
 
-BASE_URL = "http://localhost:9003"
+BASE_URL = "http://localhost:9004"
 API_BASE_URL = BASE_URL + "/api"
 PREDICTIONS_BASE_URL = API_BASE_URL + "/predictions"
 

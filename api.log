@@ -1,4 +1,15 @@
-INFO:     Started server process [10640]
+INFO:     Started server process [20036]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
-INFO:     Uvicorn running on http://localhost:9003 (Press CTRL+C to quit)
+INFO:     Uvicorn running on http://localhost:9004 (Press CTRL+C to quit)
+Database initialized successfully.
+INFO:     ::1:63835 - "POST /api/inference HTTP/1.1" 200 OK
+INFO:root:Fetched 10 predictions.
+INFO:     ::1:63836 - "GET /api/predictions HTTP/1.1" 200 OK
+INFO:     ::1:63839 - "POST /api/inference HTTP/1.1" 200 OK
+INFO:     ::1:63840 - "POST /api/inference HTTP/1.1" 200 OK
+INFO:     ::1:63841 - "POST /api/inference HTTP/1.1" 200 OK
+INFO:     ::1:63942 - "POST /api/inference HTTP/1.1" 200 OK
+INFO:     ::1:63944 - "POST /api/inference HTTP/1.1" 200 OK
+INFO:root:Fetched 15 predictions.
+INFO:     ::1:63946 - "GET /api/predictions HTTP/1.1" 200 OK
