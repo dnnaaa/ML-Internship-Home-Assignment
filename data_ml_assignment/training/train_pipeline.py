@@ -17,6 +17,7 @@ from data_ml_assignment.models.svm_model import SVMModel
 from data_ml_assignment.models.RandomForest_model import RandomForestModel
 from data_ml_assignment.models.LogisticRegression_model import LogisticRegressionModel 
 from data_ml_assignment.models.xgbc_model import XGBCModel 
+from data_ml_assignment.models.svc_model import SVCModel 
 
 
 class TrainingPipeline:
@@ -33,7 +34,7 @@ class TrainingPipeline:
         self.model = None
 
     def train(self, serialize: bool = True, model_name: str = "model"):
-        self.model = RandomForestModel()
+        self.model = SVCModel()
         self.model.fit(self.x_train, self.y_train)
 
         model_path = MODELS_PATH / f"{model_name}.joblib"
@@ -60,7 +61,7 @@ class TrainingPipeline:
         plt.rcParams["figure.figsize"] = (14, 10)
 
         PlotUtils.plot_confusion_matrix(
-            cm, classes=list(LABELS_MAP.values()), title="RandomForestModel"
+            cm, classes=list(LABELS_MAP.values()), title="SVCModel"
         )
 
         plot_path = REPORTS_PATH / f"{plot_name}.png"
@@ -72,7 +73,7 @@ class TrainingPipeline:
 
 if __name__ == "__main__":
     tp = TrainingPipeline()
-    tp.train(serialize=True, model_name="RandomForestModel")
+    tp.train(serialize=True, model_name="SVCModel")
 
     accuracy, f1_score = tp.get_model_perfomance()
     print(f"ACCURACY = {accuracy}, F1 SCORE = {f1_score}")
