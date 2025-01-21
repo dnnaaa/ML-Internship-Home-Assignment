@@ -2,8 +2,10 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-from wordcloud import WordCloud  # For word cloud visualization
-import re  # For text cleaning
+from wordcloud import WordCloud  
+import re  
+from data_ml_assignment.constants import RAW_DATASET_PATH
+
 
 def render_eda():
     st.header("Exploratory Data Analysis")
@@ -13,7 +15,7 @@ def render_eda():
     )
 
     # Load data
-    data = pd.read_csv("data/raw/resume.csv")  # Replace with your dataset path
+    data = pd.read_csv(RAW_DATASET_PATH)  # Replace with your dataset path
 
     # Display basic statistics
     st.subheader("Dataset Overview")

@@ -5,6 +5,8 @@ from sqlalchemy import create_engine, Column, Integer, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from data_ml_assignment.constants import LABELS_MAP, SAMPLES_PATH
+from data_ml_assignment.constants import SQLITE_DB_URI
+from data_ml_assignment.constants import INFERENCE_ENDPOINT
 
 # SQLite Database Setup
 Base = declarative_base()
@@ -17,7 +19,7 @@ class Prediction(Base):
     timestamp = Column(DateTime, default=datetime.utcnow)
 
 # Create SQLite database and session
-engine = create_engine("sqlite:///predictions.db", echo=True)
+engine = create_engine(SQLITE_DB_URI, echo=True)
 Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 session = Session()
@@ -40,23 +42,18 @@ def render_inference():
     if infer:
         with st.spinner("Running inference..."):
             try:
-                # Load the selected resume sample
                 sample_file = "_".join(sample.upper().split()) + ".txt"
                 with open(SAMPLES_PATH / sample_file, encoding="utf-8") as file:
                     sample_text = file.read()
 
-                # Call the Inference API
-                result = requests.post(
-                    "http://localhost:9000/api/inference", json={"text": sample_text}
-                )
+                result = requests.post(INFERENCE_ENDPOINT, json={"text": sample_text})
+
                 result.raise_for_status()  # Raise an exception for HTTP errors
 
-                # Get the predicted label
                 label = LABELS_MAP.get(int(float(result.text)))
                 st.success("Done!")
                 st.metric(label="Status", value=f"Resume label: {label}")
 
-                # Save the prediction to SQLite
                 prediction = Prediction(
                     resume_text=sample_text,
                     predicted_label=label,
