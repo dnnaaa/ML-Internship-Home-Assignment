@@ -3,20 +3,19 @@
 ## Requirements
 - Python 3.9 or higher.
 
-#### - Install Poetry on your global Python setup
-Follow the official [Poetry installation guide](https://python-poetry.org/docs/#installation) to install Poetry on your system.
+#### Create new environment
+-  py -3.11 -m venv projectenv (use version of Python less than 3.12 to avoid the problem of installing the packages "numpy")
+#### Install Poetry on your global Python setup
+-  pip install poetry.
 
- - Install requirements
-```bash
-    cd data-ml-home-assignment
-    
-    poetry install
-```
-- Activate the virtual environment
+#### Install Poetry on the project 
+ - poetry install
 
-```bash
-    poetry shell
-```
+#### Activate the virtual environment
+-In my example i run the commandes from "Git Bash" :
+  - Navigate into the folder path : cd "/c/Users/yanou/OneDrive/Bureau/ML-Internship-Home-Assignment-main/ML-Internship-Home-Assignment-main"
+  - activate the virtual environment : source projectenv/Scripts/activate
+
 #### - Start the application
 ```sh
     sh run.sh
@@ -24,29 +23,8 @@ Follow the official [Poetry installation guide](https://python-poetry.org/docs/#
 - API : http://localhost:8000
 - Streamlit Dashboard : http://localhost:9000
 
-P.S You can check the log files for any improbable issues with your execution.
-## Before we begin
-- In this assignement, you will be asked to write, refactor, and test code. 
-- Make sure you respect clean code guidelines.
-- Some parts of the already existing code are bad. Your job is to refactor them.
-- Read the assignement carefully.
-- Read the code thoroughly before you begin coding.
 
-## Description
-This mini project is a data app that revolves around resume text classification.
-
-You are given a `dataset` that contains a number of resumes with their labels.
-
-Each row of the dataset contains:
-- Label 1, 2, ..., 13 You will find the resume labels map under data_ml_assignment/constants
-- Resume text
-
-The project contains by default:
-- A baseline `naive bayes pipeline` trained on the aforementioned dataset
-- An `API` that exposes an `inference endpoint` for predictions using the baseline pipeline
-- A streamlit dashboard divided on three parts `(Exploratory Data Analysis, Training, Inference)`
-
-## Assignment
+## Assignment 
 ### 1 - Code Refactoring
 `Streamlit` is a component-based data app creator that allows you to create interactive dashboards using Python. 
 
