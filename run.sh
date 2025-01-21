@@ -1,31 +1,32 @@
 #!/bin/sh
-#Run API
-API_PID_FILE=api_pid.txt
-if test -f "$API_PID_FILE";
-then
-    pid=`cat "$API_PID_FILE"`
-    echo $pid
-    if [ "$pid" != '' ]
-    then
-        kill -9 $pid
-        rm "$API_PID_FILE"
-    fi
-    echo "RUNNING INFERENCE API"
-    nohup sh -c 'poetry run python data_ml_assignment/api/main.py' 2>&1 > api.log &
-    echo $! > "$API_PID_FILE"
-fi
+export PYTHONPATH=$(pwd)
 
-STREAMLIT_PID_FILE=streamlit_pid.txt
-if test -f "$STREAMLIT_PID_FILE";
-then
-    pid=`cat "$STREAMLIT_PID_FILE"`
-    echo $pid
-    if [ "$pid" != '' ]
-    then
-        kill -9 $pid
-        rm "$STREAMLIT_PID_FILE"
+# Run API
+API_PID_FILE=api_pid.txt
+if test -f "$API_PID_FILE"; then
+    pid=$(cat "$API_PID_FILE")
+    echo "Checking API PID: $pid"
+    if ps -p "$pid" > /dev/null 2>&1; then
+        echo "Killing old API process: $pid"
+        kill -9 "$pid"
     fi
-    echo "RUNNING STREAMLIT DASHBOARD"
-    nohup sh -c 'poetry run streamlit run --server.port 8000 dashboard.py' 2>&1 > streamlit.log &
-    echo $! > "$STREAMLIT_PID_FILE"
+    rm "$API_PID_FILE"
 fi
+echo "RUNNING INFERENCE API"
+nohup sh -c 'poetry run python data_ml_assignment/api/main.py' > api.log 2>&1 &
+echo $! > "$API_PID_FILE"
+
+# Run Streamlit
+STREAMLIT_PID_FILE=streamlit_pid.txt
+if test -f "$STREAMLIT_PID_FILE"; then
+    pid=$(cat "$STREAMLIT_PID_FILE")
+    echo "Checking Streamlit PID: $pid"
+    if ps -p "$pid" > /dev/null 2>&1; then
+        echo "Killing old Streamlit process: $pid"
+        kill -9 "$pid"
+    fi
+    rm "$STREAMLIT_PID_FILE"
+fi
+echo "RUNNING STREAMLIT DASHBOARD"
+nohup sh -c 'poetry run streamlit run --server.port 8000 dashboard.py' > streamlit.log 2>&1 &
+echo $! > "$STREAMLIT_PID_FILE"
