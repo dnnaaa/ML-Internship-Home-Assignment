@@ -36,6 +36,7 @@
 # Assignment 
 ## Assignment Process
 
+
 •	Refactor the dashboard component to replace the existing single long Python file, which is unoptimized, hard to read, maintain, and upgrade, with a suitable solution that optimizes the code and improves readability:
  -	Create a folder named Component that contains all the necessary components for use in the dashboard.py file:
  -	Include a base_component.py file, which serves as an abstraction or blueprint for components in the application.
@@ -51,6 +52,7 @@
   -	Fix the render_confusion_matrix() function to display the confusion matrix for the predicted results.
   -	Remove the if __name__ == "__main__" phase, as it is unnecessary in this case.
 •	Create a new file named logistic_model.py to be used in inference_route.py for making predictions based on the logistic model.
+
 •	Create a new file named database.py, which serves as the backbone of the application's interaction with the database system:
  -	Establish a connection to the database and ensure necessary tables are created if they do not already exist.
  -	Provide functionality for saving values to the database and retrieving them efficiently.
