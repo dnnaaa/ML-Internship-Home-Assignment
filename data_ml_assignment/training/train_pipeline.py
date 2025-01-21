@@ -1,7 +1,10 @@
 import pandas as pd
-import matplotlib.pyplot as plt
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.metrics import accuracy_score, f1_score, confusion_matrix
-from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+import joblib  # Import joblib for model serialization
 
 from data_ml_assignment.constants import (
     RAW_DATASET_PATH,
@@ -9,36 +12,54 @@ from data_ml_assignment.constants import (
     REPORTS_PATH,
     LABELS_MAP,
 )
-from data_ml_assignment.models.naive_bayes_model import NaiveBayesModel
 from data_ml_assignment.utils.plot_utils import PlotUtils
 
 
 class TrainingPipeline:
     def __init__(self):
         df = pd.read_csv(RAW_DATASET_PATH)
-
         text = df["resume"]
         y = df["label"]
 
+        # Use TF-IDF Vectorizer
+        self.vectorizer = TfidfVectorizer(max_features=5000, ngram_range=(1, 2))
+        X = self.vectorizer.fit_transform(text)
+
         self.x_train, self.x_test, self.y_train, self.y_test = train_test_split(
-            text, y, test_size=0.2, random_state=0
+            X, y, test_size=0.2, random_state=0
         )
 
         self.model = None
 
     def train(self, serialize: bool = True, model_name: str = "model"):
-        self.model = NaiveBayesModel()
-        self.model.fit(self.x_train, self.y_train)
+        # Use Logistic Regression with hyperparameter tuning
+        param_grid = {
+            "C": [0.01, 0.1, 1, 10, 100],
+            "penalty": ["l1", "l2"],
+            "solver": ["liblinear", "saga"]
+        }
 
-        model_path = MODELS_PATH / f"{model_name}.joblib"
+        grid_search = GridSearchCV(LogisticRegression(), param_grid, cv=5, scoring="f1_weighted")
+        grid_search.fit(self.x_train, self.y_train)
+
+        self.model = grid_search.best_estimator_
+
         if serialize:
-            self.model.save(model_path)
+            model_path = MODELS_PATH / f"{model_name}.joblib"
+            joblib.dump(self.model, model_path)  # Save the model using joblib
 
     def get_model_perfomance(self) -> tuple:
-        predictions = self.model.predict(self.x_test)
-        return accuracy_score(self.y_test, predictions), f1_score(
-            self.y_test, predictions, average="weighted"
-        )
+        # Test set performance
+        test_predictions = self.model.predict(self.x_test)
+        test_accuracy = accuracy_score(self.y_test, test_predictions)
+        test_f1 = f1_score(self.y_test, test_predictions, average="weighted")
+
+        # Training set performance
+        train_predictions = self.model.predict(self.x_train)
+        train_accuracy = accuracy_score(self.y_train, train_predictions)
+        train_f1 = f1_score(self.y_train, train_predictions, average="weighted")
+
+        return (train_accuracy, train_f1), (test_accuracy, test_f1)
 
     def render_confusion_matrix(self, plot_name: str = "cm_plot"):
         predictions = self.model.predict(self.x_test)
@@ -46,7 +67,7 @@ class TrainingPipeline:
         plt.rcParams["figure.figsize"] = (14, 10)
 
         PlotUtils.plot_confusion_matrix(
-            cm, classes=list(LABELS_MAP.values()), title="Naive Bayes"
+            cm, classes=list(LABELS_MAP.values()), title="Logistic Regression"
         )
 
         plot_path = REPORTS_PATH / f"{plot_name}.png"
@@ -57,6 +78,7 @@ class TrainingPipeline:
 if __name__ == "__main__":
     tp = TrainingPipeline()
     tp.train(serialize=True)
-    accuracy, f1_score = tp.get_model_perfomance()
+    (train_accuracy, train_f1), (test_accuracy, test_f1) = tp.get_model_perfomance()
     tp.render_confusion_matrix()
-    print(f"ACCURACY = {accuracy}, F1 SCORE = {f1_score}")
+    print(f"Training Accuracy = {train_accuracy:.4f}, Training F1 Score = {train_f1:.4f}")
+    print(f"Test Accuracy = {test_accuracy:.4f}, Test F1 Score = {test_f1:.4f}")
