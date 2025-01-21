@@ -8,6 +8,7 @@
 #### Install Poetry on your global Python setup
 -  pip install poetry.
 
+
 #### Install Poetry on the project 
  - poetry install
 
@@ -15,7 +16,15 @@
 -In my example i run the commandes from "Git Bash" :
   - Navigate into the folder path : cd "/c/Users/yanou/OneDrive/Bureau/ML-Internship-Home-Assignment-main/ML-Internship-Home-Assignment-main"
   - activate the virtual environment : source projectenv/Scripts/activate
+  - 
+#### Install wordcloud  package
+- pip install wordcloud
+  
+#### Install sqlalchemy  package
+- pip install sqlalchemy
 
+#### Install nltk  package
+- pip install nltk
 #### - Start the application
 ```sh
     sh run.sh
