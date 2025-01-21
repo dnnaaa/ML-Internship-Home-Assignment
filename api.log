@@ -1,6 +1,14 @@
-INFO:     Started server process [24552]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-ERROR:    [Errno 10048] error while attempting to bind on address ('::1', 9000, 0, 0): une seule utilisation de chaque adresse de socket (protocole/adresse réseau/port) est habituellement autorisée
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
+Traceback (most recent call last):
+  File "C:\Users\Anass\OneDrive\Desktop\ML-Internship-Home-Assignment\data_ml_assignment\api\main.py", line 3, in <module>
+    from data_ml_assignment.api.server import server
+  File "C:\Users\Anass\OneDrive\Desktop\ML-Internship-Home-Assignment\data_ml_assignment\api\server.py", line 3, in <module>
+    from data_ml_assignment.api.inference_route import inference_router
+  File "C:\Users\Anass\OneDrive\Desktop\ML-Internship-Home-Assignment\data_ml_assignment\api\inference_route.py", line 4, in <module>
+    from data_ml_assignment.models.naive_bayes_model import NaiveBayesModel
+  File "C:\Users\Anass\OneDrive\Desktop\ML-Internship-Home-Assignment\data_ml_assignment\models\naive_bayes_model.py", line 5, in <module>
+    from data_ml_assignment.models.base_model import BaseModel
+  File "C:\Users\Anass\OneDrive\Desktop\ML-Internship-Home-Assignment\data_ml_assignment\models\base_model.py", line 4, in <module>
+    from data_ml_assignment.models.estimator_interface import EstimatorInterface
+  File "C:\Users\Anass\OneDrive\Desktop\ML-Internship-Home-Assignment\data_ml_assignment\models\estimator_interface.py", line 1, in <module>
+    import pandas as pd
+ModuleNotFoundError: No module named 'pandas'
