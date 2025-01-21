@@ -1,6 +1,27 @@
-INFO:     Started server process [24552]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-ERROR:    [Errno 10048] error while attempting to bind on address ('::1', 9000, 0, 0): une seule utilisation de chaque adresse de socket (protocole/adresse réseau/port) est habituellement autorisée
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
+C:\Users\fatooma\AppData\Local\pypoetry\Cache\virtualenvs\data-ml-assignment-9MvCqsrj-py3.11\Lib\site-packages\sklearn\base.py:348: InconsistentVersionWarning: Trying to unpickle estimator TfidfTransformer from version 1.5.2 when using version 1.3.1. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+Traceback (most recent call last):
+  File "C:\Users\fatooma\ML-Internship-Home-Assignment\data_ml_assignment\api\main.py", line 3, in <module>
+    from data_ml_assignment.api.server import server
+  File "C:\Users\fatooma\ML-Internship-Home-Assignment\data_ml_assignment\api\server.py", line 3, in <module>
+    from data_ml_assignment.api.inference_route import inference_router
+  File "C:\Users\fatooma\ML-Internship-Home-Assignment\data_ml_assignment\api\inference_route.py", line 10, in <module>
+    model.load(XGB_PIPLINE_PATH)
+  File "C:\Users\fatooma\ML-Internship-Home-Assignment\data_ml_assignment\models\base_model.py", line 18, in load
+    model = load(model_path)
+            ^^^^^^^^^^^^^^^^INFO:     ::1:2994 - "POST /api/inference HTTP/1.1" 200 OK
+ualenvs\data-ml-assignment-9MvCqsrj-py3.11\Lib\site-packages\joblib\numpy_pickle.py", line 658, in load
+    obj = _unpickle(fobj, filename, mmap_mode)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\fatooma\AppData\Local\pypoetry\Cache\virtualenvs\data-ml-assignment-9MvCqsrj-py3.11\Lib\site-packages\joblib\numpy_pickle.py", line 577, in _unpickle
+    obj = unpickler.load()
+          ^^^^^^^^^^^^^^^^
+  File "C:\Users\fatooma\AppData\Local\Programs\Python\Python311\Lib\pickle.py", line 1213, in load
+    dispatch[key[0]](self)
+  File "C:\Users\fatooma\AppData\Local\Programs\Python\Python311\Lib\pickle.py", line 1538, in load_stack_global
+    self.append(self.find_class(module, name))
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\fatooma\AppData\Local\Programs\Python\Python311\Lib\pickle.py", line 1580, in find_class
+    __import__(module, level=0)
+ModuleNotFoundError: No module named 'numpy._core'
