@@ -1,0 +1,205 @@
+
+
+PROFESSIONAL SUMMARY:
+
+7+ years of experience in Microsoft Technologies in Designing, Developing and Implementing Intranet, Internet, client/server applications, web development, Object Oriented Programming in Software Development Life Cycle (SDLC) using Microsoft.NET Framework 3.5/2.0/1.1, ASP.NET, C#, VB.NET, ADO.NET.
+Having extensive experience in all phases of Software Development Life Cycle (SDLC) including Architecture, Requirement analysis, Design, Development, Implementation, Debugging, Testing, Documentation and Maintenance of Client/Server and web based applications.
+Having good experience in OOP’s, Caching, Authentication, Windows Services, User Controls (ascx) and Web Custom Controls.
+Experience in creating Validation Controls for front - end validation.
+Experience in development and usage of Web Services using WSDL, SOA, UDDI and SOAP.
+Effectively used JQuery a concise JavaScript Library for traversing HTML document, event handling and AJAX interactions.
+Experienced in the development of database applications using ADO.NET objects.
+Experience in Database Analysis/Design/Normalization/Manipulation processes using SQL Server, MS Access, and Oracle. Extensively worked on stored procedures and user defined functions.
+Strong knowledge in MS SQL Server, Oracle.
+Database Design, Development, and Administration using MS SQL Server, MS Access & Oracle.
+Strong knowledge in designing, developing reports using MS-Access, SQL Server 2000/2005 Reporting Services and Crystal Reports.
+Experience in Creating Unit Testing applications and Unit Testing WITH NUnit.
+Expertise in database applications involving complex Database Queries, stored procedures, triggers, (Data Transformation Services) DTS packages, design and implementation with MS SQL Server 7/ 2000/2005/2008 , Oracle 8i/9i/10g and Microsoft Access.
+Strong Experience in Design & Development of Client-Server & Web applications using Object Oriented Analysis and Design (OOAD) methodologies.
+Experience in creating, maintaining and designing database diagrams, setting table relationships and indexes.
+Experience in buildingSilverlightapplications using .Net.
+Extensive experience in eCommerce.
+Worked in a team environment and also coordinated with business/functional team.
+Excellent interpersonal and oral/written communication skills.
+
+TECHNICAL SKILLS:
+Operating Systems: Windows 95/98, Windows XP/2000/NT, MS DOS, UNIX
+Languages: C, C++, C#, ASP.NET, ADO.NET, SQL and PL/SQL.
+Databases (RDMS): MS SQL Server 2000/2005/2008 , ORACLE 8i/9i/10g, and MS Access
+Web Technologies: ASP.NET, AJAX, ADO.NET, ASP, XML, XSLT, HTML, XHTMLDHTML, SOAP, IIS, Web Services
+Scripting Languages: JavaScript, jQuery
+GUI s: ASP.NET, VB.NET, .NET Framework, Visual Studio.NET
+Development Tools: Visual Studio .NET 2003/2005/2008 , .NET Framework 1.0/1.1/2.0/3.0/3.5
+Version Control Tools: Visual SourceSafe, PVCS, MS TFS
+Tools: Microsoft Project, UML, TOAD and DTS packages.
+Testing Tools: Quality center, Unit testing using N-Unit
+Reporting Tools: MS-Access Reports, Crystal Reports, MS SQL Server ReportingServices
+Methodologies: SDLC, UML, OOAD (Object-Oriented analysis and design)
+Web Servers: Internet Information Services (IIS) 5.0/6.0
+PROFESSIONAL EXPERIENCE:
+Confidential, Irvine, CA
+.Net Developer
+Responsibilities:
+
+Involved in Software Development Life Cycle starting from requirements gathering, object oriented analysis, design, development, debugging and testing.
+Key role as onsite coordinator for requirements gathering.
+Design of Class diagrams, Use cases and sequence diagrams in UML.
+Prepared Application low level Design Documents.
+Involved in design and developing Windows Forms using C#.
+Involved in developing a new feature for the Split control between different seats, which will provide the user control over the different functionalities depending on the zone they are in.
+Involved in developing Web forms using ASP.NET, HTML and JavaScript for CES Configuration Tool.
+All the web pages, user interface layers are created and integrated to maintain the performance of data flow and data integrity using ASP.NET User Controls and ADO.NET.
+Developed the business logic for the windows forms in C#.
+Developed various custom classes using C# and Object Oriented Programming.
+Worked on N-Tier design, development and deployment using Agile Methodology.
+Involved in the business, data access and UI layers design and development and created detailed documentation and procedures around organizational infrastructure, defining standards and templates to ensure consistency.
+Exporting DataGrid to Excel Sheet and validating XML config files with XSD and XSLT.
+Connected and disconnected transactions were achieved through Dataset, DataReader and DataAdapter.
+Involved in unit testing, creating Test Cases and system integration testing.
+Involved in maintaining data quality and migrating data between all data sources
+Source code management processes and procedures using Rational Clear case for source and version control.
+
+Environment: .NETFramework 3.5, Visual Studio 2010, Windows 7, C#, ASP.NET 3.5, XML, XSD, XSLT,Extension Javascript and HTML, UML, Oracle 9i
+Confidential, Baldwin, NY
+.Net Developer
+Responsibilities:
+
+Involved in analysis, design and development of the application
+Involved in loading data from XML files to Database
+Expert in handling Dataset and data tables
+Used data grid to review and modify manipulated data
+Used ADO.NET objects such as Data Reader, Dataset and Data Adapter, Data View for consistent access to SQL Server data sources
+Developed web pages using C#, ASP.NET and Visual Studio .NET 2005
+Used ASP.NET, HTML, to create dynamic web pages using ASP.NET Web Server Controls and user controls
+Integrated with flash with the help of handlers in .net
+Designed and Developed User Interfaces using ASP.NET.
+Responsible for designing and developing ASP.NET web pages using ASP.NET, Java script, ADO.Net, SQL, HTML, CSS and AJAX Web services.
+Developed Custom User Controls to reduce the Complexity in User Interface Coding and provide better look and feel.
+Added functionality in business layer and Data access layer.
+Good at import and export of data between XML file and datasets.
+Used ADO.NET in connecting to Data Access management with SQL Server.
+Designed and developed complex stored procedures in SQL Server 2008
+Designed and developed the C# components for implementing business logic which is used to do the transactions on database in middle tier using ADO.NET.
+Generated the required reports with the help of data grid.
+Developed screens in ASP.NET AJAX-Enabled, C#, ADO.NET to display.
+Development and Testing of Web Services (A middle tier application on IIS).
+Used Tortoise SVN for version control.
+Wrote business logic in C# and handled transactions from and to database using ADO.NET objects such as Datasets, Data Adapters, and Data Readers.
+Experienced in Prepare, read, write and understand program specifications.
+Integrated with paypal online credit card payment.
+
+Environment: C#, ASP.NET, Visual Studio .NET 2005, SQL Server 2005, HTML, XML, IIS, AJAX-Enabled, ADO.NET.
+Confidential, Augusta, ME
+.Net Developer
+Responsibilities:
+
+Involved in Software Development Life Cycle starting from requirements gathering, object oriented analysis, design, development, debugging and testing.
+Key role as onsite coordinator for requirements gathering.
+Design of Class diagrams, Use cases and sequence diagrams in UML.
+Prepared Application low level Design Documents.
+Involved in design and developing Windows Forms using C#.
+Involved in developing a new feature for the Split control between different seats, which will provide the user control over the different functionalities depending on the zone they are in.
+Involved in developing Web forms using ASP.NET, HTML and JavaScript for CES Configuration Tool.
+All the web pages, user interface layers are created and integrated to maintain the performance of data flow and data integrity using ASP.NET User Controls and ADO.NET.
+Developed the business logic for the windows forms in C#.
+Developed various custom classes using C# and Object Oriented Programming.
+Worked on N-Tier design, development and deployment using Agile Methodology.
+Involved in the business, data access and UI layers design and development and created detailed documentation and procedures around organizational infrastructure, defining standards and templates to ensure consistency.
+Exporting DataGrid to Excel Sheet and validating XML config files with XSD and XSLT.
+Connected and disconnected transactions were achieved through Dataset, DataReader and DataAdapter.
+Involved in unit testing, creating Test Cases and system integration testing.
+Involved in maintaining data quality and migrating data between all data sources
+Source code management processes and procedures using Rational Clear case for source and version control.
+
+Environment: .NETFramework 2.0/ 3.0/3.5, Visual Studio 2005, Windows XP/ Vista, C#, ASP.NET 3.5, XML, XSD, XSLT,Extension Javascript and HTML, UML, Oracle 9i
+Confidential
+.Net Developer
+Responsibilities:
+
+Played an active role in all stages - requirements gathering, analysis, design, development, debugging, performance-tuning and testing.
+Design and develop SQL/PL-SQL in populating back-end SQL Server Database.
+Acted as an interface between the Development and the business teams, and worked closely with business analysts to get the requirements and clarifications during the analysis and design stage.
+Created web user controls and custom controls for reusability and to reduce the complexity of user interface design.
+Used ASP.NET 2.0 to design web forms, user controls and C#. NET for code behind.
+Extensively implemented OOPs concepts like inheritance and abstraction in this project.
+Used JavaScript and validation controls for client-side validations and alerts.
+ASP.NET, AJAX is used for partial page update.
+AJAX Script Manager, Update Panel/Progress controls were extensively used.
+Used ADO.NET objects to read and write data.
+Used grid view to view the data on the front end UI
+Integrated with flash with the help of handlers in .net
+Created tables, views, indexes and relations using SQL Management Studio.
+Implemented normalization rules in database design process.
+Written Complex queries in SQL server 2005 to retrieve the data from tables.
+Created stored procedures and user-defined functions in SQL server2005 for fast retrieval of the data from the databases to select insert and update data from the application.
+Created shared assemblies access to different applications.
+Created dynamic XML files and XSL for presentation.
+Created Skins, Themes and CSS Files to maintain consistent look and feel across the website.
+Held design walkthroughs with users and peers.
+Used Visual Source Safe for version controlling and source code protection.
+Involved in Unit and regression testing and effectively coordinated with users and testers.
+
+Environment: Visual Studio.NET 2005, ADO.NET 2.0, C#, ASP.Net 2.0, SQL Server 2005, IIS 6.0, XML, XSL, AJAX, ADO.Net 2.0 and VSS.
+Confidential, Daytona Beach, FL.
+Programmer
+Responsibilities:
+
+Designed and implemented application using.NETFramework.
+Used C#language for code behind pages to use the Oops functionality.
+Utilized Visio 2000 for developing flowcharts and data flow diagramsof the module developed.
+Created Common Data Access Layer Using C# and ADO.NET.
+Involved in designing Web forms using server controls, validation, and user controls.
+Created Business Logic Layer and Presentation Layer in C# and ASP.NET.
+Used ADO.NET extensively to interact with SQL 2000 database.
+Performed transformations on XML files through ASP.NET by supplying XSL Style Sheets.
+Developed UI Screens in WIN Forms for Cash Management Module.
+Design and Developed Reports using Crystal reports.
+Application level tracing, debugging, state maintenance throughthe Web.configXML file under the root directory of the application.
+Extensive use of ASP.NET Caching, Debugging and tracing.
+QA by tracing, debugging facility provide by.Netplatform using System. Diagnosticnamespace.
+Implemented Stored Procedures, Triggers, Joins, and Views in SQL at the back end level.
+
+Environment: Visual Studio.NET, ASP.NET, C#, Microsoft.Net Framework 2.0/1.1, IIS, Java Script, HTML, CSS, UML, XML, ADO.NET, MS SQL Server 2000
+Confidential
+Programmer
+Responsibilities:
+
+Involved in analysis, design and development of the application
+Expert in handling Dataset and data tables
+Used data grid to review and modify manipulated data
+Developed web pages using C#, ASP.NET and Visual Studio .NET 2005
+Integrated with flash with the help of handlers in .net
+Designed and Developed User Interfaces using ASP.NET.
+Responsible for designing and developing ASP.NET web pages using ASP.NET, Java script, SQL, HTML, CSS.
+Added functionality in business layer and Data access layer.
+Designed and developed complex stored procedures in SQL Server 2000
+Generated the required reports with the help of data grid.
+Developed screens in ASP.NET, C#
+Wrote business logic in C# and handled transactions from and to database using ADO.NET objects such as Datasets, Data Adapters, and Data Readers.
+
+Environment: VisualStudio.Net2005, .Net Framework 2.0, C#, ASP.Net, ADO.Net, SQL Server 2000, IIS 5.0 and VSS.
+Confidential 
+Programmer
+Responsibilities:
+
+Designed and developed User Interface screens for the production and purchase modules
+Analysis, design, development, testing and documentation of the web application.
+Acted as a buffer between the development and the business teams, and worked closely with business analysts to get the requirements and clarifications during the analysis and design stage.
+Effective user interface design using ASP.NET, JavaScript and HTML.
+Responsible for design and development of Business Logic using ASP .NET.
+Responsible for database design, implementation, query development of Oracle 8i.
+Created and integrated dynamic data into .NET applications with control over end user interaction using ASP.NET.
+Integrated with flash with the help of handlers in .net
+Developed various user controls using ASP.NET.
+Developed and configured the web.config files (XML Files with information) and design the web forms using validation controls through ASP.NET.
+Responsible for optimizing data and tuning stored procedures and queries using SQL Server 2000.
+Extensive use of ADO.NET classes to store and retrieve data from source database.
+Work with Data Bound controls like DataGrid and DataList.
+Developed and implemented appropriate Exception Handlers in ASP .NET.
+Created stored procedures, views, indexes and triggers in Oracle8i.
+Developed customizable error logging systems that can log errors and other required information to both the system logs and text files.
+Prepare test cases and verify the transaction data flow across the system.
+Test the application in the development environment before sending it into production.
+Responsible for the creation of credit reports using Crystal Reports.
+
+Environment: Visual Studio.NET 2003, ASP.NET 1.1, C#.net, ADO.NET, HTML, XML, Java Script, SQL Server 2000. 
