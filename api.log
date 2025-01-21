@@ -1,6 +1,15 @@
-INFO:     Started server process [24552]
+INFO:     Started server process [20036]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
-ERROR:    [Errno 10048] error while attempting to bind on address ('::1', 9000, 0, 0): une seule utilisation de chaque adresse de socket (protocole/adresse réseau/port) est habituellement autorisée
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
+INFO:     Uvicorn running on http://localhost:9004 (Press CTRL+C to quit)
+Database initialized successfully.
+INFO:     ::1:63835 - "POST /api/inference HTTP/1.1" 200 OK
+INFO:root:Fetched 10 predictions.
+INFO:     ::1:63836 - "GET /api/predictions HTTP/1.1" 200 OK
+INFO:     ::1:63839 - "POST /api/inference HTTP/1.1" 200 OK
+INFO:     ::1:63840 - "POST /api/inference HTTP/1.1" 200 OK
+INFO:     ::1:63841 - "POST /api/inference HTTP/1.1" 200 OK
+INFO:     ::1:63942 - "POST /api/inference HTTP/1.1" 200 OK
+INFO:     ::1:63944 - "POST /api/inference HTTP/1.1" 200 OK
+INFO:root:Fetched 15 predictions.
+INFO:     ::1:63946 - "GET /api/predictions HTTP/1.1" 200 OK
