@@ -1,8 +1,6 @@
 import numpy as np
 from joblib import dump, load
-
-from data_ml_assignment.models.estimator_interface import EstimatorInterface
-
+from .estimator_interface import EstimatorInterface
 
 class BaseModel(EstimatorInterface):
     def __init__(self, model: object = None):
@@ -15,8 +13,7 @@ class BaseModel(EstimatorInterface):
         return self.model.predict(x_test)
 
     def load(self, model_path: str):
-        model = load(model_path)
-        self.model = model
+        self.model = load(model_path)
 
     def save(self, path: str = "model.joblib"):
         dump(self.model, path)
