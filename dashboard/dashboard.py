@@ -8,7 +8,8 @@ from data_ml_assignment.constants import CM_PLOT_PATH, LABELS_MAP, SAMPLES_PATH
 from eda import display_eda_section
 from training import display_training_section
 from inference import display_inference_section
-# Run this once to create the database and the 'predictions' table
+
+# Create the database and the 'predictions' table
 from data_ml_assignment.database import create_database
 
 create_database()
