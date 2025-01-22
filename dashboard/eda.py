@@ -1,59 +1,77 @@
 import streamlit as st
 import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
+import plotly.express as px
+from io import BytesIO
 
-
-def load_data(file) -> pd.DataFrame:
-    """Load the dataset from the uploaded CSV file."""
+def load_data(uploaded_file):
+    """Secure data loading with format validation"""
     try:
-        data = pd.read_csv(file)
-        if data.empty:
-            raise ValueError("The uploaded file is empty.")
-        return data
+        if uploaded_file.name.endswith('.csv'):
+            df = pd.read_csv(uploaded_file)
+        elif uploaded_file.name.endswith('.parquet'):
+            df = pd.read_parquet(BytesIO(uploaded_file.read()))
+        else:
+            st.error("Unsupported file format. Please upload CSV or Parquet.")
+            return None
+            
+        required_cols = {'resume', 'label'}
+        if not required_cols.issubset(df.columns):
+            missing = required_cols - set(df.columns)
+            st.error(f"Missing required columns: {', '.join(missing)}")
+            return None
+            
+        return df.dropna(subset=['resume', 'label'])
     except Exception as e:
-        st.error(f"Error loading file: {e}")
-        return pd.DataFrame()  # Return an empty DataFrame in case of an error
+        st.error(f"Data loading error: {str(e)}")
+        return None
 
-
-def display_summary(data: pd.DataFrame) -> None:
-    """Display the summary statistics of the dataset."""
-    st.write("### Summary Statistics")
-    st.write(data.describe(include="all"))
-
-
-def plot_histogram(data: pd.DataFrame, column: str, kde: bool, binwidth: int) -> None:
-    """Plot a histogram for the given column in the dataset."""
-    fig = plt.figure(figsize=(10, 6))
-    sns.histplot(data[column], kde=kde, binwidth=binwidth)
-    st.pyplot(fig)
-
-
-def display_eda_section() -> None:
-    """Display the exploratory data analysis (EDA) section for the resume dataset."""
-    st.header("Exploratory Data Analysis")
-    st.info(
-        "In this section, you can create insightful graphs "
-        "about the resume dataset that you were provided."
-    )
-
-    file = st.file_uploader("Upload CSV file", type=["csv"])
+def display_eda_section():
+    st.header("📊 Advanced Data Analysis")
     
-    if file:
-        data = load_data(file)
+    with st.expander("📥 Data Upload", expanded=True):
+        uploaded_file = st.file_uploader(
+            "Upload Dataset", 
+            type=["csv", "parquet"],
+            help="Supported formats: CSV, Parquet (must contain 'resume' and 'label' columns)"
+        )
+    
+    if not uploaded_file:
+        st.info("👋 Please upload a dataset to begin analysis")
+        return
+
+    df = load_data(uploaded_file)
+    if df is None:
+        return
+
+    # Dashboard Metrics
+    with st.container():
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.metric("Total Resumes", df.shape[0])
+        with col2:
+            st.metric("Unique Labels", df['label'].nunique())
+        with col3:
+            st.metric("Missing Values", df.isnull().sum().sum())
+
+    # Interactive Analysis
+    tab1, tab2, tab3 = st.tabs(["Distribution", "Text Analysis", "Advanced"])
+    
+    with tab1:
+        st.subheader("Label Distribution")
+        fig = px.pie(df, names='label', hole=0.3)
+        st.plotly_chart(fig, use_container_width=True)
         
-        if data.empty:
-            st.warning("The uploaded file is empty or invalid. Please try again.")
-            return
-
-        display_summary(data)
-
-        numeric_columns = data.select_dtypes(include=["number"]).columns
-        if not numeric_columns.any():
-            st.warning("No numeric columns available for visualization.")
-            return
-
-        column = st.selectbox("Select column for histogram", numeric_columns)
-        kde = st.checkbox("Show KDE", value=True)
-        binwidth = st.slider("Select bin width", min_value=1, max_value=100, value=1)
-        plot_histogram(data, column, kde, binwidth)
+    with tab2:
+        st.subheader("Text Characteristics")
+        df['text_length'] = df['resume'].str.len()
+        fig = px.histogram(df, x='text_length', color='label', marginal="rug")
+        st.plotly_chart(fig, use_container_width=True)
+        
+    with tab3:
+        st.subheader("Correlation Matrix")
+        numeric_df = df.select_dtypes(include='number')
+        if not numeric_df.empty:
+            fig = px.imshow(numeric_df.corr(), text_auto=True)
+            st.plotly_chart(fig, use_container_width=True)
+        else:
+            st.warning("No numeric columns for correlation analysis")
