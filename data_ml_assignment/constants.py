@@ -15,3 +15,7 @@ CM_PLOT_PATH = REPORTS_PATH / "cm_plot.png"
 
 SAMPLES_PATH = PARENT_PATH / "samples"
 LABELS_MAP = {0: '.Net Developer', 1: 'Business Analyst', 2: 'Business Intelligence', 3: 'Help Desk and Support', 4: 'Informatica Developer', 5: 'Java Developer', 6: 'Network and System Administrator', 7: 'Oracle DBA', 8: 'Project Manager', 9: 'Quality Assurance', 10: 'SAP', 11: 'SQL Developer', 12: 'Sharepoint Developer', 13: 'Web Developer'}
+SQLITE_DB_PATH = PARENT_PATH / "predictions.db"
+SQLITE_DB_URI = f"sqlite:///{SQLITE_DB_PATH}"
+API_BASE_URL = "http://localhost:9000"
+INFERENCE_ENDPOINT = f"{API_BASE_URL}/api/inference"
