@@ -1,0 +1,11 @@
+# Existing dependencies
+streamlit
+pandas
+numpy
+scikit-learn
+plotly
+pytest
+requests
+
+# New dependencies for SQLite storage
+sqlalchemy 

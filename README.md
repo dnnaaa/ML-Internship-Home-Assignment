@@ -21,8 +21,9 @@ Follow the official [Poetry installation guide](https://python-poetry.org/docs/#
 ```sh
     sh run.sh
 ```
-- API : http://localhost:8000
-- Streamlit Dashboard : http://localhost:9000
+- API : http://localhost:9000
+- Streamlit Dashboard : http://localhost:8000
+
 
 P.S You can check the log files for any improbable issues with your execution.
 ## Before we begin

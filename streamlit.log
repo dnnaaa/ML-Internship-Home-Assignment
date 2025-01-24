@@ -1,0 +1,101 @@
+
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8000
+  Network URL: http://192.168.102.210:8000
+
+C:\Users\Hp\Desktop\ML-Internship-Home-Assignment\data_ml_assignment\training\train_pipeline.py:54: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+C:\Users\Hp\Desktop\ML-Internship-Home-Assignment\data_ml_assignment\training\train_pipeline.py:54: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+2025-01-21 21:27:35.606 Uncaught app exception
+Traceback (most recent call last):
+  File "C:\Users\Hp\Desktop\ML-Internship-Home-Assignment\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\script_runner.py", line 541, in _run_script
+    exec(code, module.__dict__)
+  File "C:\Users\Hp\Desktop\ML-Internship-Home-Assignment\dashboard.py", line 3, in <module>
+    from data_ml_assignment.dashboard.components.eda import EDAComponent
+  File "C:\Users\Hp\Desktop\ML-Internship-Home-Assignment\data_ml_assignment\dashboard\components\eda.py", line 3, in <module>
+    import plotly.express as px
+ModuleNotFoundError: No module named 'plotly'
+2025-01-21 21:32:40.107 Uncaught app exception
+Traceback (most recent call last):
+  File "C:\Users\Hp\Desktop\ML-Internship-Home-Assignment\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\script_runner.py", line 541, in _run_script
+    exec(code, module.__dict__)
+  File "C:\Users\Hp\Desktop\ML-Internship-Home-Assignment\dashboard.py", line 23, in <module>
+    main()
+  File "C:\Users\Hp\Desktop\ML-Internship-Home-Assignment\dashboard.py", line 20, in main
+    components[selected].render()
+  File "C:\Users\Hp\Desktop\ML-Internship-Home-Assignment\data_ml_assignment\dashboard\components\eda.py", line 105, in render
+    common_words = self.get_common_words()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Hp\Desktop\ML-Internship-Home-Assignment\data_ml_assignment\dashboard\components\eda.py", line 46, in get_common_words
+    all_words.extend(self.preprocess_text(text))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Hp\Desktop\ML-Internship-Home-Assignment\data_ml_assignment\dashboard\components\eda.py", line 35, in preprocess_text
+    tokens = word_tokenize(text)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Hp\Desktop\ML-Internship-Home-Assignment\.venv\Lib\site-packages\nltk\tokenize\__init__.py", line 142, in word_tokenize
+    sentences = [text] if preserve_line else sent_tokenize(text, language)
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Hp\Desktop\ML-Internship-Home-Assignment\.venv\Lib\site-packages\nltk\tokenize\__init__.py", line 119, in sent_tokenize
+    tokenizer = _get_punkt_tokenizer(language)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Hp\Desktop\ML-Internship-Home-Assignment\.venv\Lib\site-packages\nltk\tokenize\__init__.py", line 105, in _get_punkt_tokenizer
+    return PunktTokenizer(language)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Hp\Desktop\ML-Internship-Home-Assignment\.venv\Lib\site-packages\nltk\tokenize\punkt.py", line 1744, in __init__
+    self.load_lang(lang)
+  File "C:\Users\Hp\Desktop\ML-Internship-Home-Assignment\.venv\Lib\site-packages\nltk\tokenize\punkt.py", line 1749, in load_lang
+    lang_dir = find(f"tokenizers/punkt_tab/{lang}/")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Hp\Desktop\ML-Internship-Home-Assignment\.venv\Lib\site-packages\nltk\data.py", line 579, in find
+    raise LookupError(resource_not_found)
+LookupError: 
+**********************************************************************
+  Resource [93mpunkt_tab[0m not found.
+  Please use the NLTK Downloader to obtain the resource:
+
+  [31m>>> import nltk
+  >>> nltk.download('punkt_tab')
+  [0m
+  For more information see: https://www.nltk.org/data.html
+
+  Attempted to load [93mtokenizers/punkt_tab/english/[0m
+
+  Searched in:
+    - 'C:\\Users\\Hp/nltk_data'
+    - 'C:\\Users\\Hp\\Desktop\\ML-Internship-Home-Assignment\\.venv\\nltk_data'
+    - 'C:\\Users\\Hp\\Desktop\\ML-Internship-Home-Assignment\\.venv\\share\\nltk_data'
+    - 'C:\\Users\\Hp\\Desktop\\ML-Internship-Home-Assignment\\.venv\\lib\\nltk_data'
+    - 'C:\\Users\\Hp\\AppData\\Roaming\\nltk_data'
+    - 'C:\\nltk_data'
+    - 'D:\\nltk_data'
+    - 'E:\\nltk_data'
+**********************************************************************
+
+C:\Users\Hp\Desktop\ML-Internship-Home-Assignment\data_ml_assignment\training\train_pipeline.py:54: UserWarning:
+
+FigureCanvasAgg is non-interactive, and thus cannot be shown
+
+2025-01-21 21:45:26.553 Uncaught app exception
+Traceback (most recent call last):
+  File "C:\Users\Hp\Desktop\ML-Internship-Home-Assignment\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\script_runner.py", line 541, in _run_script
+    exec(code, module.__dict__)
+  File "C:\Users\Hp\Desktop\ML-Internship-Home-Assignment\dashboard.py", line 4, in <module>
+    from data_ml_assignment.dashboard.components.training import TrainingComponent
+  File "C:\Users\Hp\Desktop\ML-Internship-Home-Assignment\data_ml_assignment\dashboard\components\training.py", line 5, in <module>
+    from data_ml_assignment.training.train_pipeline import TrainingPipeline
+  File "C:\Users\Hp\Desktop\ML-Internship-Home-Assignment\data_ml_assignment\training\train_pipeline.py", line 12, in <module>
+    from data_ml_assignment.constants import (
+ImportError: cannot import name 'TRAIN_SIZE' from 'data_ml_assignment.constants' (C:\Users\Hp\Desktop\ML-Internship-Home-Assignment\data_ml_assignment\constants.py)
+2025-01-21 22:18:43.768 Uncaught app exception
+Traceback (most recent call last):
+  File "C:\Users\Hp\Desktop\ML-Internship-Home-Assignment\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\script_runner.py", line 541, in _run_script
+    exec(code, module.__dict__)
+  File "C:\Users\Hp\Desktop\ML-Internship-Home-Assignment\dashboard.py", line 5, in <module>
+    from data_ml_assignment.dashboard.components.inference import InferenceComponent
+  File "C:\Users\Hp\Desktop\ML-Internship-Home-Assignment\data_ml_assignment\dashboard\components\inference.py", line 8, in <module>
+    from data_ml_assignment.models.prediction import Session, Prediction
+  File "C:\Users\Hp\Desktop\ML-Internship-Home-Assignment\data_ml_assignment\models\prediction.py", line 1, in <module>
+    from sqlalchemy import Column, Integer, String, DateTime, create_engine
+ModuleNotFoundError: No module named 'sqlalchemy'
