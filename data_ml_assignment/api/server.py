@@ -10,4 +10,11 @@ def server() -> FastAPI:
         docs_url=f"{API_PREFIX}/docs",
     )
     app.include_router(inference_router, prefix=API_PREFIX)
+    
+    # Ajouter une route pour `/`
+    @app.get("/")
+    async def root():
+        return {"message": "Welcome to the API!"}
+
+    
     return app

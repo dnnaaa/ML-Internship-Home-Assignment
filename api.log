@@ -1,6 +1,8 @@
-INFO:     Started server process [24552]
+INFO:     Started server process [1716]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
-ERROR:    [Errno 10048] error while attempting to bind on address ('::1', 9000, 0, 0): une seule utilisation de chaque adresse de socket (protocole/adresse réseau/port) est habituellement autorisée
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
+INFO:     Uvicorn running on http://localhost:9000 (Press CTRL+C to quit)
+INFO:     ::1:64670 - "GET / HTTP/1.1" 200 OK
+INFO:     ::1:64674 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     ::1:64676 - "GET /api/docs HTTP/1.1" 200 OK
+INFO:     ::1:64676 - "GET /openapi.json HTTP/1.1" 200 OK
