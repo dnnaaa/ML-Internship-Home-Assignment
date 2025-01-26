@@ -1,0 +1,42 @@
+import sqlite3
+import pandas as pd
+
+def check_predictions_table():
+    # Nom du fichier SQLite
+    db_file = "predictions.db"
+    
+    try:
+        # Connexion à la base de données
+        conn = sqlite3.connect(db_file)
+        print(f"Connected to database: {db_file}")
+        
+        # Vérification des tables existantes
+        cursor = conn.cursor()
+        cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+        tables = cursor.fetchall()
+        if not tables:
+            print("No tables found in the database.")
+            return
+        print("Tables in database:", tables)
+        
+        # Vérification du contenu de la table 'predictions'
+        query = "SELECT * FROM predictions"
+        predictions_df = pd.read_sql_query(query, conn)
+        
+        if predictions_df.empty:
+            print("The 'predictions' table is empty.")
+        else:
+            print("Contents of the 'predictions' table:")
+            print(predictions_df)
+        
+        # Fermeture de la connexion
+        conn.close()
+        print("Connection closed.")
+        
+    except Exception as e:
+        print("Error while accessing the database:")
+        print(e)
+
+# Appel de la fonction
+if __name__ == "__main__":
+    check_predictions_table()
