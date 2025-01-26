@@ -4,27 +4,33 @@
 - Python 3.9 or higher.
 
 #### Create new environment
--  py -3.11 -m venv projectenv (use version of Python less than 3.12 to avoid the problem of installing the packages , for example "numpy=1.24.3".)
+- `py -3.11 -m venv projectenv`  
+*(Use a Python version less than 3.12 to avoid issues with package installation, such as "numpy=1.24.3.")*
 #### Install Poetry on your global Python setup
--  pip install poetry.
+-  `pip install poetry`
 
 
 #### Install Poetry on the project 
- - poetry install
+ - `poetry install`
 
-#### Activate the virtual environment
--In my example i run the commandes from "Git Bash" :
-  - Navigate into the folder path : cd "/c/Users/yanou/OneDrive/Bureau/ML-Internship-Home-Assignment-main/ML-Internship-Home-Assignment-main"
-  - activate the virtual environment : source projectenv/Scripts/activate
-  - 
+#### Activate the Virtual Environment
+- In this example, I run the commands from **Git Bash**:
+  - Navigate to the folder path:  
+    `cd "/c/Users/yanou/OneDrive/Bureau/ML-Internship-Home-Assignment-main/ML-Internship-Home-Assignment-main"`
+  - Activate the virtual environment:  
+    `source projectenv/Scripts/activate`
+
 #### Install wordcloud  package
-- pip install wordcloud
+- `pip install wordcloud`
+
+#### Install pytest  package
+- `pip install pytest`
   
 #### Install sqlalchemy  package
-- pip install sqlalchemy
+- `pip install sqlalchemy`
 
 #### Install nltk  package
-- pip install nltk
+- `pip install nltk`
 #### - Start the application
 ```sh
     sh run.sh
@@ -37,10 +43,11 @@
 ## Assignment Process
 
 
-# Refactoring and Optimizing the Dashboard Component
-
 ## Overview
-This project involves refactoring and optimizing an existing unstructured and unmaintainable Python dashboard codebase. The goal is to enhance readability, maintainability, and scalability by reorganizing the structure into logical components and creating reusable utilities.
+This project involves refactoring and optimizing an existing unstructured and unmaintainable Python dashboard codebase. In addition to enhancing readability, maintainability, and scalability by reorganizing the structure into logical components and creating reusable utilities, the project introduces several key improvements:
+- Integration of a trained logistic regression model with the GridSearch algorithm to improve prediction accuracy.
+- Capabilities for adding, displaying, and deleting inference results from the database.
+- An interactive Exploratory Data Analysis (EDA) component to enhance data visualization and insights.
 
 ---
 
