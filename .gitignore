@@ -1,3 +1,6 @@
 *.log
 *.pid
 __pycache__/
+*.log
+*.pid
+__pycache__/
