@@ -13,7 +13,7 @@ In the EDA section of the Streamlit dashboard, I have added the following visual
 4. **Label Distribution**: A bar chart showing the distribution of labels across the dataset.
 5. **Statistical Summary**: A table summarizing key statistics such as mean, median, and standard deviation for resume lengths and label frequencies.
 
-![EDA Screenshot](./static/eda.png)
+![EDA Screenshot](./static/new_eda.png)
 
 ## Training
 In the training section, I experimented with three different models to improve upon the baseline Naive Bayes pipeline:
@@ -41,8 +41,4 @@ In the inference section, I used the **SVM model** to make predictions on new re
 ![Inference Screenshot](./static/inference.png)
 
 
-```bash
-cd data-ml-home-assignment
-poetry install
-poetry shell
-sh run.sh
+
