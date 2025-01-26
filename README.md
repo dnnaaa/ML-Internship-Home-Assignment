@@ -38,7 +38,7 @@ The Logistic Regression model performed the best, with an accuracy of 0.93.
 ## Inference
 In the inference section, I used the **SVM model** to make predictions on new resumes. The results of the predictions are saved to a SQLite database, and the contents of the database are displayed after each inference run.
 
-![Inference Screenshot](./static/inference.png)
+![Inference Screenshot](./static/new_inference.png)
 
 
 
