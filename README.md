@@ -270,7 +270,7 @@ ML-Internship-Home-Assignment/
 ![](./static/inf6.png)
 ##
 
-#### Image 4 : 
+#### Image 5 : 
 ###### After reloading the page, the inference with an ID value of 5 has been removed and no longer appears in the list.
 ![](./static/inf7.png)
 ##
