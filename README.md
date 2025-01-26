@@ -37,48 +37,171 @@
 ## Assignment Process
 
 
-•	Refactor the dashboard component to replace the existing single long Python file, which is unoptimized, hard to read, maintain, and upgrade, with a suitable solution that optimizes the code and improves readability:
- -	Create a folder named Component that contains all the necessary components for use in the dashboard.py file:
- -	Include a base_component.py file, which serves as an abstraction or blueprint for components in the application.
- - Add a component_manager.py file, which acts as a feature for easily adding or removing components in the dashboard.
- - Include an eda_component.py file for the Exploratory Data Analysis component.
- - Add an inference_component.py file for the Inference component.
- - Include a training_component.py file for the Training component.
- - 	Create a folder named helperfunction to store functions used in the Exploratory Data Analysis component, such as dataset_advanced_analysis.py, dataset_distribution.py, and dataset_overview.py. These functions are stored here to avoid having one long Python file.
-•	Create a folder named utils inside the ML-Internship-Home-Assignment directory. This folder will contain a file named helpers.py:
-  -	The helpers.py file includes functions such as display_metrics(), load_sample_text(), run_inference(), save_inference(), and others. These functions will be used in both the inference and training components.
+# Refactoring and Optimizing the Dashboard Component
 
-•	Update the train_pipeline.py file:
-  -	Replace the NaiveBayesModel with a new model that combines the logistic regression model with TfidfVectorizer and the GridSearchCV algorithm to improve prediction results.
-  -	Fix the render_confusion_matrix() function to display the confusion matrix for the predicted results.
-  -	Remove the if __name__ == "__main__" phase, as it is unnecessary in this case.
-•	Create a new file named logistic_model.py to be used in inference_route.py for making predictions based on the logistic model.
+## Overview
+This project involves refactoring and optimizing an existing unstructured and unmaintainable Python dashboard codebase. The goal is to enhance readability, maintainability, and scalability by reorganizing the structure into logical components and creating reusable utilities.
 
-•	Create a new file named database.py, which serves as the backbone of the application's interaction with the database system:
- -	Establish a connection to the database and ensure necessary tables are created if they do not already exist.
- -	Provide functionality for saving values to the database and retrieving them efficiently.
- -	Ensure seamless data handling and enhance application reliability by managing database operations centrally.
-•	Update the inference_route.py file:
- -	Replace the NaiveBayesModel with the logistic model.
- -	Update the PIPELINE_PATH.
- -	Add new endpoints to save results to the database and retrieve information from it.
-•	Update the utils/constant.py file:
- -	Add the path for the logistic model pipeline.
+---
 
+## Features and Enhancements
 
+### **1. Modular Dashboard Architecture**
+- **Objective**: Break down the single long Python file into smaller, manageable components.
+- **Solution**:
+  - Create a `Component` folder to organize all components used in `dashboard.py`.
+  - Include the following files in the `Component` folder:
+    - `base_component.py`: Serves as an abstraction or blueprint for components in the application.
+    - `component_manager.py`: Enables easy addition or removal of dashboard components.
+    - `eda_component.py`: Dedicated to Exploratory Data Analysis (EDA) functionality.
+    - `inference_component.py`: Handles inference-related functionalities.
+    - `training_component.py`: Contains the training pipeline logic.
+
+### **2. Helper Functions for EDA**
+- **Objective**: Simplify the Exploratory Data Analysis component by decoupling utility functions.
+- **Solution**:
+  - Create a `helperfunction` folder to store reusable EDA functions:
+    - `dataset_advanced_analysis.py`
+    - `dataset_distribution.py`
+    - `dataset_overview.py`
+    - `dataset_preprocessing.py`
+    - `dataset_wordscloud.py`
+  - Avoid a bloated Python file by modularizing these functionalities.
+
+### **3. Utility Functions**
+- **Objective**: Centralize common functions for reuse across components.
+- **Solution**:
+  - Create a `utils` folder in the root directory (`ML-Internship-Home-Assignment`).
+  - Add a `helpers.py` file to include functions such as:
+    - `display_metrics()`
+    - `load_sample_text()`
+    - `run_inference()`
+    - `save_inference()`
+    - `delete_inference()`
+  - Reuse these functions in both `inference_component.py` and `training_component.py`.
+
+### **4. Updating the Training Pipeline**
+- **Objective**: Enhance model performance and streamline code.
+- **Solution**:
+  - Replace `NaiveBayesModel` with a new logistic regression model pipeline:
+    - Use `TfidfVectorizer` and `GridSearchCV` for optimized predictions.
+  - Fix `render_confusion_matrix()` to display the confusion matrix for predicted results.
+  - Remove the `if __name__ == "__main__"` block as it is unnecessary.
+
+### **5. Logistic Model for Inference**
+- **Objective**: Simplify the inference process by introducing a new logistic regression model.
+- **Solution**:
+  - Create a `logistic_model.py` file for making predictions in `inference_route.py`.
+
+### **6. Database Integration**
+- **Objective**: Centralize and optimize database interactions.
+- **Solution**:
+  - Create a `database.py` file to:
+    - Establish a connection to the database.
+    - Automatically create necessary tables if they do not exist.
+    - Provide functions for saving and retrieving data efficiently.
+  - Ensure seamless and reliable data handling.
+
+### **7. Updating Inference Route**
+- **Objective**: Migrate from `NaiveBayesModel` to logistic regression.
+- **Solution**:
+  - Replace `NaiveBayesModel` with the logistic regression model.
+  - Update `PIPELINE_PATH` to reflect the logistic model pipeline.
+  - Add endpoints for:
+    - Saving results to the database.
+    - Retrieving information from the database.
+    - Deleting information from the database based on the ID.
+
+---
+
+## Project Structure
+```plaintext
+ML-Internship-Home-Assignment/
+├── Component/
+│   ├── __pycache__
+│   ├── base_component.py
+│   ├── component_manager.py
+│   ├── eda_component.py
+│   ├── inference_component.py
+│   ├── training_component.py
+│   ├── helperfunction/
+│        ├── dataset_advanced_analysis.py
+│        ├── dataset_distribution.py
+│        ├── dataset_overview.py
+│        ├── dataset_preprocessing.py
+│        ├── dataset_wordscloud.py
+├── data/
+│   ├── processed
+│   ├── raw
+│        ├── resume.csv
+├── data_ml_assignment/
+│   ├── api
+│        ├── constants.py
+│        ├── database.py
+│        ├── inference_route.py
+│        ├── main.py
+│        ├── schemas.py
+│        ├── server.py
+│   ├── models
+│        ├── __init__.py
+│        ├── __pycache__
+│        ├── base_model.py
+│        ├── estimator_interface.py
+│        ├── logistic_model.py
+│        ├── naive_bayes_model.py
+│        ├── svc_model.py
+│        ├── xgbc_model.py
+│   ├── training
+│        ├── __init__.py
+│        ├── __pycache__
+│        ├── train_pipeline.py
+│        ├── logistic_model.py
+│   ├── utils
+│        ├── __init__.py
+│        ├── __pycache__
+│        ├── plot_utils.py
+│   ├── __init__.py
+│   ├── constants.py
+├── reports/
+├── samples/
+├── static/
+├── tests/
+│     ├── __init__.py
+│     ├── __pycache__
+│     ├── test_eda.py
+│     ├── test_inference.py
+│     ├── test_train.py
+├── utils/
+│   ├── __pycache__
+│   ├── __init__.py
+│   ├── helpers.py
+├── __init__.py
+├── api_pid.txt
+├── api.log
+├── dashboard.py
+├── poetry.lock
+├── predictions.db
+├── pyproject.toml
+├── README.md
+├── run.sh
+├── streamlit_pid.txt
+├── streamlit.log
 ## Application Interface 
 
 ### 1 - Exploratory Data Analysis
 
-
 ![](./static/eda1.png)
 ##
+
 ![](./static/eda2.png)
 ##
+
 ![](./static/eda3.png)
 ##
+
 ![](./static/eda4.png)
 ##
+
 ![](./static/eda5.png)
 ##
 ![](./static/eda6.png)
@@ -91,9 +214,13 @@
 
 ### 2 - Training 
 
-
+#### Image 1 :
+###### The user clicks the Train button and waits until the model finishes training.
 ![](./static/tr1.png)
 ##
+
+#### Image 2 :
+###### After the model finishes training, the results are displayed on the page along with a confusion matrix.
 ![](./static/tr2.png)
 ##
 
@@ -115,10 +242,27 @@
 ##
 
 #### Image 2 :
-![](./static/inf3.png)
+![](./static/inf4.png)
 ##
-## Prospective Feature
-•	For the inference_component, the ID of each reference is already displayed. Additional features will be added to allow users to delete unwanted inferences based on their ID.
+
+- Case 3:  If the user wants to delete an inference based on its ID.
+
+#### Image 3 :  
+###### The user wants to delete the inference with ID 5.
+![](./static/inf5.png)
+##
+
+#### Image 4 : 
+###### The user goes to the form, enters the value 5, and then deletes the inference.
+![](./static/inf6.png)
+##
+
+#### Image 4 : 
+###### After reloading the page, the inference with an ID value of 5 has been removed and no longer appears in the list.
+![](./static/inf7.png)
+##
+
+
 
 Feel free to reach out for questions or feedback:
 - **Email:**  [anouzlay@gmail.com](mailto:anouzlay@gmail.com)
