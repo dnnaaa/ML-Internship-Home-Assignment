@@ -1,6 +1,0 @@
-INFO:     Started server process [24552]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-ERROR:    [Errno 10048] error while attempting to bind on address ('::1', 9000, 0, 0): une seule utilisation de chaque adresse de socket (protocole/adresse réseau/port) est habituellement autorisée
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
