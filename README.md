@@ -41,4 +41,5 @@ In the inference section, I used the **SVM model** to make predictions on new re
 ![Inference Screenshot](./static/new_inference.png)
 
 
+*Written by ABGHOUNI AMAL*
 
