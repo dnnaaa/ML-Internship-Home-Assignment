@@ -1,79 +1,121 @@
-import time
 import streamlit as st
-from PIL import Image
-import requests
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from pathlib import Path
+from joblib import load
 
-from data_ml_assignment.training.train_pipeline import TrainingPipeline
-from data_ml_assignment.constants import CM_PLOT_PATH, LABELS_MAP, SAMPLES_PATH
+# Import constants
+from data_ml_assignment.constants import SAMPLES_PATH, MODELS_PATH
+from database import add_prediction_to_db, get_all_predictions
 
+class EDAComponent:
+    def render(self):
+        st.header("Exploratory Data Analysis")
+        st.info("Explore the dataset with statistical descriptions and visualizations.")
 
-st.title("Resume Classification Dashboard")
-st.sidebar.title("Dashboard Modes")
+        # Load dataset with error handling
+        try:
+            resumes_df = pd.read_csv(SAMPLES_PATH / 'resumes.csv')
+            st.success("Dataset loaded successfully!")
+        except Exception as e:
+            st.error(f"Error loading dataset: {e}")
+            return
 
-sidebar_options = st.sidebar.selectbox("Options", ("EDA", "Training", "Inference"))
+        # Tabs for different views
+        tab1, tab2, tab3 = st.tabs(["Dataset Overview", "Statistical Summary", "Visualizations"])
 
-if sidebar_options == "EDA":
-    st.header("Exploratory Data Analysis")
-    st.info(
-        "In this section, you are invited to create insightful graphs "
-        "about the resume dataset that you were provided."
-    )
-elif sidebar_options == "Training":
-    st.header("Pipeline Training")
-    st.info(
-        "Before you proceed to training your pipeline. Make sure you "
-        "have checked your training pipeline code and that it is set properly."
-    )
+        with tab1:
+            st.subheader("Resume Dataset")
+            rows = st.slider("Select number of rows to preview:", min_value=5, max_value=len(resumes_df), value=10)
+            st.dataframe(resumes_df.head(rows))
 
-    name = st.text_input("Pipeline name", placeholder="Naive Bayes")
-    serialize = st.checkbox("Save pipeline")
-    train = st.button("Train pipeline")
+        with tab2:
+            st.subheader("Statistical Descriptions")
+            st.write(resumes_df.describe())
+            st.write("Categorical Column Distribution:")
+            st.write(resumes_df['Label'].value_counts())
 
-    if train:
-        with st.spinner("Training pipeline, please wait..."):
-            try:
-                tp = TrainingPipeline()
-                tp.train(serialize=serialize, model_name=name)
-                tp.render_confusion_matrix()
-                accuracy, f1 = tp.get_model_perfomance()
-                col1, col2 = st.columns(2)
+        with tab3:
+            st.subheader("Visualizations")
+            
+            # Distribution of labels
+            fig1, ax1 = plt.subplots(figsize=(10, 6))
+            resumes_df['Label'].value_counts().plot(kind='bar', ax=ax1, color='skyblue')
+            ax1.set_title('Distribution of Resume Labels')
+            ax1.set_xlabel('Label')
+            ax1.set_ylabel('Count')
+            st.pyplot(fig1)
 
-                col1.metric(label="Accuracy score", value=str(round(accuracy, 4)))
-                col2.metric(label="F1 score", value=str(round(f1, 4)))
+            # Length of resumes by label
+            st.markdown("#### Resume Length by Label")
+            fig2, ax2 = plt.subplots(figsize=(10, 6))
+            resumes_df['resume_length'] = resumes_df['resume'].str.len()
+            sns.boxplot(x='Label', y='resume_length', data=resumes_df, ax=ax2)
+            ax2.set_title('Resume Length Distribution by Label')
+            st.pyplot(fig2)
 
-                st.image(Image.open(CM_PLOT_PATH), width=850)
-            except Exception as e:
-                st.error("Failed to train the pipeline!")
-                st.exception(e)
+class InferenceComponent:
+    def __init__(self):
+        # Load serialized model and vectorizer
+        self.model = load(MODELS_PATH / "improved_model.joblib")
+        self.vectorizer = load(MODELS_PATH / "improved_model_vectorizer.joblib")
 
-else:
-    st.header("Resume Inference")
-    st.info(
-        "This section simplifies the inference process. "
-        "Choose a test resume and observe the label that your trained pipeline will predict."
-    )
+    def render(self):
+        st.header("Resume Prediction")
+        st.info("Predict resume labels and view prediction history.")
 
-    sample = st.selectbox(
-        "Resume samples for inference",
-        tuple(LABELS_MAP.values()),
-        index=None,
-        placeholder="Select a resume sample",
-    )
-    infer = st.button("Run Inference")
+        # Resume text input
+        resume_text = st.text_area("Enter resume text:", height=300)
 
-    if infer:
-        with st.spinner("Running inference..."):
-            try:
-                sample_file = "_".join(sample.upper().split()) + ".txt"
-                with open(SAMPLES_PATH / sample_file, encoding="utf-8") as file:
-                    sample_text = file.read()
+        # Prediction button
+        if st.button("Predict Label"):
+            if resume_text.strip():
+                try:
+                    # Vectorization and prediction
+                    vectorized_text = self.vectorizer.transform([resume_text])
+                    predicted_label = self.model.predict(vectorized_text)[0]
+                    probabilities = self.model.predict_proba(vectorized_text)[0]
+                    confidence = max(probabilities)
 
-                result = requests.post(
-                    "http://localhost:9000/api/inference", json={"text": sample_text}
-                )
-                st.success("Done!")
-                label = LABELS_MAP.get(int(float(result.text)))
-                st.metric(label="Status", value=f"Resume label: {label}")
-            except Exception as e:
-                st.error("Failed to call Inference API!")
-                st.exception(e)
+                    # Display results
+                    col1, col2 = st.columns(2)
+                    with col1:
+                        st.success(f"Predicted Label: {predicted_label}")
+                    with col2:
+                        st.info(f"Confidence: {confidence:.2%}")
+
+                    # Save to database
+                    add_prediction_to_db(resume_text, predicted_label)
+                    st.success("Prediction saved to database.")
+
+                except Exception as e:
+                    st.error(f"Prediction error: {e}")
+            else:
+                st.warning("Please enter resume text.")
+
+        # Prediction history
+        st.subheader("Prediction History")
+        predictions = get_all_predictions()
+        if predictions:
+            for pred in predictions:
+                with st.expander(f"Prediction for {pred.predicted_label}"):
+                    st.text(pred.resume[:500] + "..." if len(pred.resume) > 500 else pred.resume)
+                    st.write(f"**Predicted Label:** {pred.predicted_label}")
+        else:
+            st.info("No predictions stored yet.")
+
+def main():
+    st.set_page_config(page_title="Resume Analysis", page_icon="📊")
+    st.sidebar.title("Resume Analysis Dashboard")
+    
+    menu = ["EDA", "Inference"]
+    choice = st.sidebar.radio("Select Section", menu)
+
+    if choice == "EDA":
+        EDAComponent().render()
+    elif choice == "Inference":
+        InferenceComponent().render()
+
+if __name__ == "__main__":
+    main()
