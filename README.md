@@ -103,11 +103,20 @@
 
 ![](./static/inf1.png)
 ##
+
+- Case 1: If the user selects a resume sample that does not exist.
 ![](./static/inf2.png)
 ##
+
+- Case 2: If the user selects a resume sample that exists.
+
+#### Image 1 :
 ![](./static/inf3.png)
 ##
 
+#### Image 2 :
+![](./static/inf3.png)
+##
 ## Prospective Feature
 •	For the inference_component, the ID of each reference is already displayed. Additional features will be added to allow users to delete unwanted inferences based on their ID.
 
