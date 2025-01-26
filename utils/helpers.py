@@ -45,3 +45,10 @@ def show_inference():
     response=requests.post(API_URL_get)
     response.raise_for_status()
     return response.text
+
+def delete_inference(id):
+    import requests
+    API_URL_delete = f"http://localhost:9000/api/delete?id={id}"
+    response = requests.get(API_URL_delete)
+    response.raise_for_status()
+    return f"button clicked {id}"
