@@ -1,21 +1,20 @@
-INFO:     Started server process [9340]
+INFO:     Started server process [12196]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://localhost:9000 (Press CTRL+C to quit)
-INFO:     ::1:59477 - "GET / HTTP/1.1" 404 Not Found
-INFO:     ::1:59478 - "GET / HTTP/1.1" 404 Not Found
-INFO:     ::1:59478 - "GET / HTTP/1.1" 404 Not Found
-INFO:     ::1:59616 - "GET /docs HTTP/1.1" 404 Not Found
-INFO:     ::1:59616 - "GET /docs HTTP/1.1" 404 Not Found
-INFO:     ::1:59726 - "GET /api HTTP/1.1" 404 Not Found
-INFO:     ::1:59771 - "GET /api/ HTTP/1.1" 404 Not Found
-INFO:     ::1:59875 - "GET /data/ HTTP/1.1" 404 Not Found
-INFO:     ::1:59875 - "GET /data/ HTTP/1.1" 404 Not Found
-INFO:     ::1:59914 - "GET /api/docs HTTP/1.1" 200 OK
-INFO:     ::1:59914 - "GET /openapi.json HTTP/1.1" 200 OK
-INFO:     ::1:59953 - "GET /api/inference HTTP/1.1" 405 Method Not Allowed
-INFO:     ::1:59956 - "GET /api/docs HTTP/1.1" 200 OK
-INFO:     ::1:59956 - "GET /openapi.json HTTP/1.1" 200 OK
-INFO:     ::1:60126 - "POST /api/inference HTTP/1.1" 422 Unprocessable Entity
-INFO:     ::1:60126 - "POST /api/inference HTTP/1.1" 422 Unprocessable Entity
-INFO:     ::1:60159 - "POST /api/inference HTTP/1.1" 200 OK
+INFO:     ::1:1632 - "GET /api/docs HTTP/1.1" 200 OK
+INFO:     ::1:1632 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     ::1:1895 - "GET /api/inference HTTP/1.1" 405 Method Not Allowed
+INFO:     ::1:1895 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     ::1:1921 - "GET /api/docs HTTP/1.1" 200 OK
+INFO:     ::1:1921 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     ::1:2045 - "POST /api/inference HTTP/1.1" 200 OK
+INFO:     ::1:4583 - "POST /api/inference HTTP/1.1" 200 OK
+INFO:     ::1:4879 - "GET /api/inference HTTP/1.1" 405 Method Not Allowed
+INFO:     ::1:12501 - "POST /api/inference HTTP/1.1" 200 OK
+INFO:     ::1:12502 - "POST /api/inference HTTP/1.1" 200 OK
+INFO:     ::1:12503 - "POST /api/inference HTTP/1.1" 200 OK
+INFO:     ::1:12620 - "GET /api/docs HTTP/1.1" 200 OK
+INFO:     ::1:12620 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     ::1:12621 - "POST /api/inference HTTP/1.1" 422 Unprocessable Entity
+INFO:     ::1:12702 - "POST /api/inference HTTP/1.1" 200 OK
