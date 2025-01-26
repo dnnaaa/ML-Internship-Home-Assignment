@@ -1,3 +1,4 @@
+#! Import necessary libraries
 import streamlit as st
 import pickle
 from sqlalchemy import create_engine, Table, Column, Integer, String, MetaData, DateTime
@@ -7,7 +8,7 @@ from datetime import datetime
 import pandas as pd
 import os
 
-# Mapping des labels sans nombres
+# Labels without numbers
 LABELS = [
     '.Net Developer', 'Business Analyst', 'Business Intelligence', 
     'Help Desk and Support', 'Informatica Developer', 'Java Developer', 
@@ -16,17 +17,21 @@ LABELS = [
     'Sharepoint Developer', 'Web Developer'
 ]
 
-#! Load vectorizer and model from disk
+#! Load pipeline components from disk
 def load_pipeline(pipeline_name):
     try:
         with open(f"models/{pipeline_name}_vectorizer.pkl", "rb") as vec_file:
             vectorizer = pickle.load(vec_file)
+        with open(f"models/{pipeline_name}_svd.pkl", "rb") as svd_file:
+            svd = pickle.load(svd_file)
+        with open(f"models/{pipeline_name}_scaler.pkl", "rb") as scaler_file:
+            scaler = pickle.load(scaler_file)
         with open(f"models/{pipeline_name}_model.pkl", "rb") as model_file:
             model = pickle.load(model_file)
         st.success(f"Pipeline '{pipeline_name}' loaded successfully.")
-        return vectorizer, model
+        return vectorizer, svd, scaler, model
     except FileNotFoundError:
-        st.error(f"Pipeline files for '{pipeline_name}' not found.")
+        st.error(f"One or more pipeline files for '{pipeline_name}' not found.")
         st.stop()
     except Exception as e:
         st.error(f"Error loading pipeline '{pipeline_name}': {e}")
@@ -75,7 +80,7 @@ def save_prediction(engine, results_table, resume_text, predicted_label):
 def render_inference_section():
     st.header("Resume Classification Dashboard")
     st.subheader("CV Inference")
-    st.info("Entrez le texte d'un CV et voyez comment le pipeline entraîné prédit son étiquette.")
+    st.info("Enter resume text and see the predicted label from the trained pipeline.")
 
     ## Set up database connection
     engine, results_table = setup_database()
@@ -86,27 +91,29 @@ def render_inference_section():
     st.text_input("Pipeline Name", value=st.session_state.pipeline_name, key="pipeline_name")
 
     if st.button("Load Pipeline"):
-        vectorizer, model = load_pipeline(st.session_state.pipeline_name)
+        vectorizer, svd, scaler, model = load_pipeline(st.session_state.pipeline_name)
         st.session_state["vectorizer"] = vectorizer
+        st.session_state["svd"] = svd
+        st.session_state["scaler"] = scaler
         st.session_state["model"] = model
 
     ## Run inference if pipeline is loaded
-    if "vectorizer" in st.session_state and "model" in st.session_state:
-        # Option 1: Sélectionner une étiquette et générer un texte de CV factice
-        # resume_samples = LABELS  # Affiche un sous-ensemble d'étiquettes
-        # selected_resume = st.selectbox("Select a sample CV for inference", resume_samples)
-
-        # Option 2: Saisir un texte de CV réel
-        st.subheader("Entrer le Texte du CV")
-        sample_resume_text = st.text_area("Texte du CV", height=200)
+    if all(key in st.session_state for key in ["vectorizer", "svd", "scaler", "model"]):
+        st.subheader("Enter Resume Text")
+        sample_resume_text = st.text_area("Resume Text", height=200)
 
         if st.button("Run Inference"):
             if not sample_resume_text.strip():
-                st.error("Veuillez entrer le texte du CV pour effectuer une prédiction.")
+                st.error("Please enter resume text for prediction.")
             else:
                 try:
+                    # Sequential transformation: Vectorizer -> SVD -> Scaler
                     sample_vectorized = st.session_state["vectorizer"].transform([sample_resume_text])
-                    predicted_label = str(st.session_state["model"].predict(sample_vectorized)[0])
+                    sample_svd = st.session_state["svd"].transform(sample_vectorized)
+                    sample_scaled = st.session_state["scaler"].transform(sample_svd)
+                    
+                    # Prediction
+                    predicted_label = str(st.session_state["model"].predict(sample_scaled)[0])
 
                     # Display prediction and save it
                     st.metric("Predicted Label", predicted_label)
@@ -123,5 +130,6 @@ def render_inference_section():
     except SQLAlchemyError as e:
         st.error(f"Failed to load prediction history: {e}")
 
+#! Main section
 if __name__ == "__main__":
     render_inference_section()

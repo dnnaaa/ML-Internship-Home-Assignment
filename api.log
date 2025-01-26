@@ -1,14 +1,4 @@
 Traceback (most recent call last):
   File "C:\Users\Anass\OneDrive\Desktop\ML-Internship-Home-Assignment\data_ml_assignment\api\main.py", line 3, in <module>
     from data_ml_assignment.api.server import server
-  File "C:\Users\Anass\OneDrive\Desktop\ML-Internship-Home-Assignment\data_ml_assignment\api\server.py", line 3, in <module>
-    from data_ml_assignment.api.inference_route import inference_router
-  File "C:\Users\Anass\OneDrive\Desktop\ML-Internship-Home-Assignment\data_ml_assignment\api\inference_route.py", line 4, in <module>
-    from data_ml_assignment.models.naive_bayes_model import NaiveBayesModel
-  File "C:\Users\Anass\OneDrive\Desktop\ML-Internship-Home-Assignment\data_ml_assignment\models\naive_bayes_model.py", line 5, in <module>
-    from data_ml_assignment.models.base_model import BaseModel
-  File "C:\Users\Anass\OneDrive\Desktop\ML-Internship-Home-Assignment\data_ml_assignment\models\base_model.py", line 4, in <module>
-    from data_ml_assignment.models.estimator_interface import EstimatorInterface
-  File "C:\Users\Anass\OneDrive\Desktop\ML-Internship-Home-Assignment\data_ml_assignment\models\estimator_interface.py", line 1, in <module>
-    import pandas as pd
-ModuleNotFoundError: No module named 'pandas'
+ModuleNotFoundError: No module named 'data_ml_assignment'
