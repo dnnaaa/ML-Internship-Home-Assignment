@@ -4,7 +4,7 @@ from data_ml_assignment.models.naive_bayes_model import NaiveBayesModel
 from data_ml_assignment.models.logistic_model import LogisticModel
 from data_ml_assignment.constants import NAIVE_BAYES_PIPELINE_PATH
 from data_ml_assignment.constants import LOGISTIC_MODEL_PIPELINE_PATH
-from .database import save_prediction_to_db, get_all_predictions
+from .database import save_prediction_to_db, get_all_predictions , delete_prediction
 from fastapi import FastAPI, HTTPException
 
 model = LogisticModel()
@@ -28,3 +28,9 @@ def save_inference(prediction: PredictionResponse):
 def get_inference():
     predictions = get_all_predictions()
     return {"predictions": predictions}
+
+
+@inference_router.get("/delete")
+def delete_inference(id: int): 
+    delete_prediction(id)
+    return {"response": f"The inference with ID {id} has been deleted."}

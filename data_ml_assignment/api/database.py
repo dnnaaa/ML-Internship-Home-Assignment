@@ -57,3 +57,14 @@ def get_all_predictions():
         raise e
     finally:
         session.close()
+
+def delete_prediction(id):
+    session = SessionLocal()
+    try:
+        delete_query = predictions_table.delete().where(predictions_table.c.id == id)  
+        session.execute(delete_query)
+        session.commit()
+    except Exception as e:
+        raise e
+    finally:
+        session.close()
