@@ -186,6 +186,8 @@ ML-Internship-Home-Assignment/
 ├── run.sh
 ├── streamlit_pid.txt
 ├── streamlit.log
+```
+---
 
 
 
