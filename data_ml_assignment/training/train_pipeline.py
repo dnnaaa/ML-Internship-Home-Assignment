@@ -1,17 +1,20 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import streamlit as st
 from sklearn.metrics import accuracy_score, f1_score, confusion_matrix
 from sklearn.model_selection import train_test_split
-
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.pipeline import Pipeline
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import GridSearchCV
 from data_ml_assignment.constants import (
     RAW_DATASET_PATH,
     MODELS_PATH,
     REPORTS_PATH,
     LABELS_MAP,
 )
-from data_ml_assignment.models.naive_bayes_model import NaiveBayesModel
 from data_ml_assignment.utils.plot_utils import PlotUtils
-
+import joblib
 
 class TrainingPipeline:
     def __init__(self):
@@ -26,13 +29,26 @@ class TrainingPipeline:
 
         self.model = None
 
-    def train(self, serialize: bool = True, model_name: str = "model"):
-        self.model = NaiveBayesModel()
-        self.model.fit(self.x_train, self.y_train)
+    def train(self, serialize: bool = True, model_name: str = "advanced_model"):
+        # Define pipeline with TF-IDF vectorizer and Logistic Regression
+        pipeline = Pipeline([
+            ('tfidf', TfidfVectorizer(stop_words='english', max_features=5000)),
+            ('clf', LogisticRegression(max_iter=1000, random_state=0)),
+        ])
 
-        model_path = MODELS_PATH / f"{model_name}.joblib"
+        # Hyperparameter tuning
+        param_grid = {
+            'clf__C': [0.1, 1, 10],
+            'clf__solver': ['liblinear', 'lbfgs']
+        }
+        grid_search = GridSearchCV(pipeline, param_grid, cv=3, scoring='f1_weighted')
+        grid_search.fit(self.x_train, self.y_train)
+
+        self.model = grid_search.best_estimator_
+
         if serialize:
-            self.model.save(model_path)
+            model_path = MODELS_PATH / f"{model_name}.joblib"
+            joblib.dump(self.model, model_path)
 
     def get_model_perfomance(self) -> tuple:
         predictions = self.model.predict(self.x_test)
@@ -40,23 +56,16 @@ class TrainingPipeline:
             self.y_test, predictions, average="weighted"
         )
 
-    def render_confusion_matrix(self, plot_name: str = "cm_plot"):
+    def render_confusion_matrix(self):
         predictions = self.model.predict(self.x_test)
         cm = confusion_matrix(self.y_test, predictions)
         plt.rcParams["figure.figsize"] = (14, 10)
 
+        # Generate the confusion matrix plot
         PlotUtils.plot_confusion_matrix(
-            cm, classes=list(LABELS_MAP.values()), title="Naive Bayes"
+            cm, classes=list(LABELS_MAP.values()), title="Advanced Model"
         )
 
-        plot_path = REPORTS_PATH / f"{plot_name}.png"
-        plt.savefig(plot_path, bbox_inches="tight")
-        plt.show()
-
-
-if __name__ == "__main__":
-    tp = TrainingPipeline()
-    tp.train(serialize=True)
-    accuracy, f1_score = tp.get_model_perfomance()
-    tp.render_confusion_matrix()
-    print(f"ACCURACY = {accuracy}, F1 SCORE = {f1_score}")
+        # Display the confusion matrix plot in Streamlit
+        st.pyplot(plt)
+        plt.close()  # Close the plot to avoid overlapping plots in Streamlit

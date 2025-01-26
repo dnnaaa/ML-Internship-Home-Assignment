@@ -3,20 +3,34 @@
 ## Requirements
 - Python 3.9 or higher.
 
-#### - Install Poetry on your global Python setup
-Follow the official [Poetry installation guide](https://python-poetry.org/docs/#installation) to install Poetry on your system.
+#### Create new environment
+- `py -3.11 -m venv projectenv`  
+*(Use a Python version less than 3.12 to avoid issues with package installation, such as "numpy=1.24.3.")*
+#### Install Poetry on your global Python setup
+-  `pip install poetry`
 
- - Install requirements
-```bash
-    cd data-ml-home-assignment
-    
-    poetry install
-```
-- Activate the virtual environment
 
-```bash
-    poetry shell
-```
+#### Install Poetry on the project 
+ - `poetry install`
+
+#### Activate the Virtual Environment
+- In this example, I run the commands from **Git Bash**:
+  - Navigate to the folder path:  
+    `cd "/c/Users/yanou/OneDrive/Bureau/ML-Internship-Home-Assignment-main/ML-Internship-Home-Assignment-main"`
+  - Activate the virtual environment:  
+    `source projectenv/Scripts/activate`
+
+#### Install wordcloud  package
+- `pip install wordcloud`
+
+#### Install pytest  package
+- `pip install pytest`
+  
+#### Install sqlalchemy  package
+- `pip install sqlalchemy`
+
+#### Install nltk  package
+- `pip install nltk`
 #### - Start the application
 ```sh
     sh run.sh
@@ -24,130 +38,247 @@ Follow the official [Poetry installation guide](https://python-poetry.org/docs/#
 - API : http://localhost:8000
 - Streamlit Dashboard : http://localhost:9000
 
-P.S You can check the log files for any improbable issues with your execution.
-## Before we begin
-- In this assignement, you will be asked to write, refactor, and test code. 
-- Make sure you respect clean code guidelines.
-- Some parts of the already existing code are bad. Your job is to refactor them.
-- Read the assignement carefully.
-- Read the code thoroughly before you begin coding.
 
-## Description
-This mini project is a data app that revolves around resume text classification.
+# Assignment 
+## Assignment Process
 
-You are given a `dataset` that contains a number of resumes with their labels.
 
-Each row of the dataset contains:
-- Label 1, 2, ..., 13 You will find the resume labels map under data_ml_assignment/constants
-- Resume text
+## Overview
+This project involves refactoring and optimizing an existing unstructured and unmaintainable Python dashboard codebase. In addition to enhancing readability, maintainability, and scalability by reorganizing the structure into logical components and creating reusable utilities, the project introduces several key improvements:
+- Integration of a trained logistic regression model with the GridSearch algorithm to improve prediction accuracy.
+- Capabilities for adding, displaying, and deleting inference results from the database.
+- An interactive Exploratory Data Analysis (EDA) component to enhance data visualization and insights.
 
-The project contains by default:
-- A baseline `naive bayes pipeline` trained on the aforementioned dataset
-- An `API` that exposes an `inference endpoint` for predictions using the baseline pipeline
-- A streamlit dashboard divided on three parts `(Exploratory Data Analysis, Training, Inference)`
+---
 
-## Assignment
-### 1 - Code Refactoring
-`Streamlit` is a component-based data app creator that allows you to create interactive dashboards using Python. 
+## Features and Enhancements
 
-While Streamlit is easy to use by "non frontenders", it can easily turn into a complicated piece of code.
+### **1. Modular Dashboard Architecture**
+- **Objective**: Break down the single long Python file into smaller, manageable components.
+- **Solution**:
+  - Create a `Component` folder to organize all components used in `dashboard.py`.
+  - Include the following files in the `Component` folder:
+    - `base_component.py`: Serves as an abstraction or blueprint for components in the application.
+    - `component_manager.py`: Enables easy addition or removal of dashboard components.
+    - `eda_component.py`: Dedicated to Exploratory Data Analysis (EDA) functionality.
+    - `inference_component.py`: Handles inference-related functionalities.
+    - `training_component.py`: Contains the training pipeline logic.
 
-As mentioned previously, the streamlit dashboard you have at hand is divided into 3 sections:
-- Exploratory Data Analysis
-- Training
-- Inference
+### **2. Helper Functions for EDA**
+- **Objective**: Simplify the Exploratory Data Analysis component by decoupling utility functions.
+- **Solution**:
+  - Create a `helperfunction` folder to store reusable EDA functions:
+    - `dataset_advanced_analysis.py`
+    - `dataset_distribution.py`
+    - `dataset_overview.py`
+    - `dataset_preprocessing.py`
+    - `dataset_wordscloud.py`
+  - Avoid a bloated Python file by modularizing these functionalities.
 
-The code for the dashboard is written into one long Python (`dashboard.py`) script which makes it long, unoptimized, hard to read, hard to maintain, and hard to upgrade.
+### **3. Utility Functions**
+- **Objective**: Centralize common functions for reuse across components.
+- **Solution**:
+  - Create a `utils` folder in the root directory (`ML-Internship-Home-Assignment`).
+  - Add a `helpers.py` file to include functions such as:
+    - `display_metrics()`
+    - `load_sample_text()`
+    - `run_inference()`
+    - `save_inference()`
+    - `delete_inference()`
+  - Reuse these functions in both `inference_component.py` and `training_component.py`.
 
-Your job is to:
-- Rewrite the code while respecting `clean code` guidelines.
-- `Refactor` the script and dissociate the components.
-- Create the appropriate `abstraction` to make it easy to add components on top of the existing code.
+### **4. Updating the Training Pipeline**
+- **Objective**: Enhance model performance and streamline code.
+- **Solution**:
+  - Replace `NaiveBayesModel` with a new logistic regression model pipeline:
+    - Use `TfidfVectorizer` and `GridSearchCV` for optimized predictions.
+  - Fix `render_confusion_matrix()` to display the confusion matrix for predicted results.
+  - Remove the `if __name__ == "__main__"` block as it is unnecessary.
 
-`Bonus points`: if you pinpoint any other code anomalies across the whole project and correct them.
+### **5. Logistic Model for Inference**
+- **Objective**: Simplify the inference process by introducing a new logistic regression model.
+- **Solution**:
+  - Create a `logistic_model.py` file for making predictions in `inference_route.py`.
 
-### 2 - Exploratory Data Analysis
-In this section, you are asked to explore the dataset you are provided and derive insights from it:
-- Statistical Descriptions
-- Charts
+### **6. Database Integration**
+- **Objective**: Centralize and optimize database interactions.
+- **Solution**:
+  - Create a `database.py` file to:
+    - Establish a connection to the database.
+    - Automatically create necessary tables if they do not exist.
+    - Provide functions for saving and retrieving data efficiently.
+  - Ensure seamless and reliable data handling.
 
-Your EDA must be added to the first section of the streamlit dashboard.
+### **7. Updating Inference Route**
+- **Objective**: Migrate from `NaiveBayesModel` to logistic regression.
+- **Solution**:
+  - Replace `NaiveBayesModel` with the logistic regression model.
+  - Update `PIPELINE_PATH` to reflect the logistic model pipeline.
+  - Add endpoints for:
+    - Saving results to the database.
+    - Retrieving information from the database.
+    - Deleting information from the database based on the ID.
 
-P.S: You can add data processing in this section if needed.
+---
 
-![](./static/eda.png)
+## Project Structure
+```plaintext
+ML-Internship-Home-Assignment/
+├── Component/
+│   ├── __pycache__
+│   ├── base_component.py
+│   ├── component_manager.py
+│   ├── eda_component.py
+│   ├── inference_component.py
+│   ├── training_component.py
+│   ├── helperfunction/
+│        ├── dataset_advanced_analysis.py
+│        ├── dataset_distribution.py
+│        ├── dataset_overview.py
+│        ├── dataset_preprocessing.py
+│        ├── dataset_wordscloud.py
+├── data/
+│   ├── processed
+│   ├── raw
+│        ├── resume.csv
+├── data_ml_assignment/
+│   ├── api
+│        ├── constants.py
+│        ├── database.py
+│        ├── inference_route.py
+│        ├── main.py
+│        ├── schemas.py
+│        ├── server.py
+│   ├── models
+│        ├── __init__.py
+│        ├── __pycache__
+│        ├── base_model.py
+│        ├── estimator_interface.py
+│        ├── logistic_model.py
+│        ├── naive_bayes_model.py
+│        ├── svc_model.py
+│        ├── xgbc_model.py
+│   ├── training
+│        ├── __init__.py
+│        ├── __pycache__
+│        ├── train_pipeline.py
+│        ├── logistic_model.py
+│   ├── utils
+│        ├── __init__.py
+│        ├── __pycache__
+│        ├── plot_utils.py
+│   ├── __init__.py
+│   ├── constants.py
+├── reports/
+├── samples/
+├── static/
+├── tests/
+│     ├── __init__.py
+│     ├── __pycache__
+│     ├── test_eda.py
+│     ├── test_inference.py
+│     ├── test_train.py
+├── utils/
+│   ├── __pycache__
+│   ├── __init__.py
+│   ├── helpers.py
+├── __init__.py
+├── api_pid.txt
+├── api.log
+├── dashboard.py
+├── poetry.lock
+├── predictions.db
+├── pyproject.toml
+├── README.md
+├── run.sh
+├── streamlit_pid.txt
+├── streamlit.log
+```
+---
 
-Hints: Please refer to the [documentation](https://docs.streamlit.io/library/api-reference) to learn more on how to use Streamlit `widgets` in order to display: `pandas dataframes`, `charts`, `tables`, etc, as well as interactive components: `text inputs`, `buttons`, `sliders`, etc.
 
-### 3 - Training 
-In this section, you are asked to `beat` the baseline pipeline. 
 
-The trained pipeline is a combination of a Count Vectorizer and a Naive Bayes model
 
-The goal is to capitalize on what you have discovered during the `EDA phase` and use the insights you derived in order to create a pipeline that performs `better` than the baseline you were provided.
+## Application Interface 
 
-The higher the `F1 score` the better.
+### 1 - Exploratory Data Analysis
 
-You can `trigger` the baseline pipeline `training` in the `second` section of the `dashboard`.
+![](./static/eda1.png)
+##
 
-Choose the `name` of the pipeline and whether you want to `serialize` it.
+![](./static/eda2.png)
+##
 
-![](./static/training.png)
+![](./static/eda3.png)
+##
 
-Click `Train pipeline` and wait until the training is done...
+![](./static/eda4.png)
+##
 
-![](./static/training_current.png)
+![](./static/eda5.png)
+##
+![](./static/eda6.png)
+##
+![](./static/eda7.png)
+##
+![](./static/eda8.png)
+##
+![](./static/eda9.png)
 
-Once done, you will be able to see the F1 score as well as the confusion matrix.
+### 2 - Training 
 
-P.S: If you chose the `save option` at the beginning of the training, you will be able to see the serialized pipeline under `models/pipeline_name`
+#### Image 1 :
+###### The user clicks the Train button and waits until the model finishes training.
+![](./static/tr1.png)
+##
 
-![](./static/training_result.png)
+#### Image 2 :
+###### After the model finishes training, the results are displayed on the page along with a confusion matrix.
+![](./static/tr2.png)
+##
 
-Hints: 
-- Make sure to change the training pipeline before you can trigger the training of your own from the dashboard.
-- Make sure to add a vectorization method to your pipeline if missing.
-- Your model must respect the abstraction used to build the baseline
+### 3 - Inference
 
-### 4 - Inference
 
-`Inference` is just a fancy word to say `prediction`.
 
-In the third section of the dashboard, you can `choose` different `resumes` and run the serialized pipeline against them.
+![](./static/inf1.png)
+##
 
-![](./static/inference.png)
+- Case 1: If the user selects a resume sample that does not exist.
+![](./static/inf2.png)
+##
 
-The example shows an inference for a Java Developer resume:
+- Case 2: If the user selects a resume sample that exists.
 
-![](./static/inference_done.png)
+#### Image 1 :
+![](./static/inf3.png)
+##
 
-In this section, you are asked to: 
-- Create an `endpoint` that allows you to `save` the prediction results into a `SQlite table`.
-- Display the `contents` of the SQlite table after each inference run.
+#### Image 2 :
+![](./static/inf4.png)
+##
 
-Hints: Think about using `SQLALchemy`
+- Case 3:  If the user wants to delete an inference based on its ID.
 
-### 5 - Unit testing
+#### Image 3 :  
+###### The user wants to delete the inference with ID 5.
+![](./static/inf5.png)
+##
 
-As mentioned previously, your code should be unit tested. 
+#### Image 4 : 
+###### The user goes to the form, enters the value 5, and then deletes the inference.
+![](./static/inf6.png)
+##
 
-Hints: Use `pytest` for your unit tests as well as `mocks` for external services.
+#### Image 5 : 
+###### After reloading the page, the inference with an ID value of 5 has been removed and no longer appears in the list.
+![](./static/inf7.png)
+##
 
-## Git Best Practices
 
-- **Write Meaningful Commit Messages**: Each commit message should be clear and concise, describing the changes made. Use the format:
-  ```
-  <type>: <short description>
-  ```
-  Examples:  
-  - `feat: add extraction task for ETL pipeline`  
-  - `fix: resolve bug in transform job schema`  
-  - `refactor: split ETL script into modular tasks`
 
-- **Commit Small, Logical Changes**: Avoid bundling unrelated changes in one commit.
+Feel free to reach out for questions or feedback:
+- **Email:**  [anouzlay@gmail.com](mailto:anouzlay@gmail.com)
+- **GitHub:** [Anouzlay](https://github.com/Anouzlay)
 
-- **Review Before Committing**: Ensure clean and tested code before committing.
-- **...
-
-[This guide](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) provides detailed insights into writing better commit messages, branching strategies, and overall Git workflows.
 
