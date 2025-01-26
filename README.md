@@ -1,153 +1,84 @@
-# ML-Internship-Home-Assignment
+# Model Training and Evaluation
 
-## Requirements
-- Python 3.9 or higher.
+## Training Process
 
-#### - Install Poetry on your global Python setup
-Follow the official [Poetry installation guide](https://python-poetry.org/docs/#installation) to install Poetry on your system.
+- **Naive Bayes**
+  - Training Naive Bayes...
 
- - Install requirements
+- **Logistic Regression**
+  - Training Logistic Regression...
+
+- **Random Forest**
+  - Training Random Forest...
+
+- **Support Vector Machine**
+  - Training Support Vector Machine...
+
+## Model Comparison
+
+| Model                | Best Parameters                                                                                                     | CV F1 Macro |
+|----------------------|---------------------------------------------------------------------------------------------------------------------|-------------|
+| Naive Bayes          | `{'alpha': 0.1}`                                                                                                   | 0.9029      |
+| Logistic Regression  | `{'C': 1, 'penalty': 'l2'}`                                                                                        | 0.9527      |
+| Random Forest        | `{'bootstrap': True, 'max_depth': None, 'max_features': 'sqrt', 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 400}` | 0.9619      |
+| Support Vector Machine | `{'C': 10, 'kernel': 'rbf'}`                                                                                     | 0.9581      |
+
+**Best Model:** Random Forest (CV F1 = 0.9619)
+
+---
+
+## Best Model Evaluation
+
+### Selected Model: Random Forest
+- **CV F1 Macro:** 0.9619
+
+### Test Metrics
+- **Test Accuracy:** 0.9211
+- **Test F1 Score (Weighted):** 0.9202
+
+### Classification Report
+
+```
+              precision    recall  f1-score   support
+
+           0       1.00      0.96      0.98        26
+           1       0.82      0.90      0.86        20
+           2       0.85      0.85      0.85        33
+           3       1.00      0.95      0.98        21
+           4       1.00      0.67      0.80        21
+           5       0.93      0.93      0.93        29
+           6       0.90      0.90      0.90        10
+           7       0.92      0.92      0.92        12
+           8       0.86      0.97      0.91        31
+           9       0.96      1.00      0.98        22
+          10       1.00      1.00      1.00        16
+          11       0.94      0.91      0.93        35
+          12       0.96      1.00      0.98        24
+          13       0.84      0.94      0.89        17
+
+    accuracy                           0.92       317
+   macro avg       0.93      0.92      0.92       317
+weighted avg       0.93      0.92      0.92       317
+```
+
+### Confusion Matrix
+
+![Confusion Matrix](./reports/confusion-matrix.png)
+
+---
+
+## Summary
+Training complete. The best model is **Random Forest** with a CV F1 score of **0.9619**.
+
+---
+
+## Git Commands to Save and Merge
+
+Run the following commands to save and merge the updated README:
+
 ```bash
-    cd data-ml-home-assignment
-    
-    poetry install
+git add README.md
+git commit -m "Updated README with training results and evaluation metrics"
+git push origin main
+git merge main
 ```
-- Activate the virtual environment
-
-```bash
-    poetry shell
-```
-#### - Start the application
-```sh
-    sh run.sh
-```
-- API : http://localhost:8000
-- Streamlit Dashboard : http://localhost:9000
-
-P.S You can check the log files for any improbable issues with your execution.
-## Before we begin
-- In this assignement, you will be asked to write, refactor, and test code. 
-- Make sure you respect clean code guidelines.
-- Some parts of the already existing code are bad. Your job is to refactor them.
-- Read the assignement carefully.
-- Read the code thoroughly before you begin coding.
-
-## Description
-This mini project is a data app that revolves around resume text classification.
-
-You are given a `dataset` that contains a number of resumes with their labels.
-
-Each row of the dataset contains:
-- Label 1, 2, ..., 13 You will find the resume labels map under data_ml_assignment/constants
-- Resume text
-
-The project contains by default:
-- A baseline `naive bayes pipeline` trained on the aforementioned dataset
-- An `API` that exposes an `inference endpoint` for predictions using the baseline pipeline
-- A streamlit dashboard divided on three parts `(Exploratory Data Analysis, Training, Inference)`
-
-## Assignment
-### 1 - Code Refactoring
-`Streamlit` is a component-based data app creator that allows you to create interactive dashboards using Python. 
-
-While Streamlit is easy to use by "non frontenders", it can easily turn into a complicated piece of code.
-
-As mentioned previously, the streamlit dashboard you have at hand is divided into 3 sections:
-- Exploratory Data Analysis
-- Training
-- Inference
-
-The code for the dashboard is written into one long Python (`dashboard.py`) script which makes it long, unoptimized, hard to read, hard to maintain, and hard to upgrade.
-
-Your job is to:
-- Rewrite the code while respecting `clean code` guidelines.
-- `Refactor` the script and dissociate the components.
-- Create the appropriate `abstraction` to make it easy to add components on top of the existing code.
-
-`Bonus points`: if you pinpoint any other code anomalies across the whole project and correct them.
-
-### 2 - Exploratory Data Analysis
-In this section, you are asked to explore the dataset you are provided and derive insights from it:
-- Statistical Descriptions
-- Charts
-
-Your EDA must be added to the first section of the streamlit dashboard.
-
-P.S: You can add data processing in this section if needed.
-
-![](./static/eda.png)
-
-Hints: Please refer to the [documentation](https://docs.streamlit.io/library/api-reference) to learn more on how to use Streamlit `widgets` in order to display: `pandas dataframes`, `charts`, `tables`, etc, as well as interactive components: `text inputs`, `buttons`, `sliders`, etc.
-
-### 3 - Training 
-In this section, you are asked to `beat` the baseline pipeline. 
-
-The trained pipeline is a combination of a Count Vectorizer and a Naive Bayes model
-
-The goal is to capitalize on what you have discovered during the `EDA phase` and use the insights you derived in order to create a pipeline that performs `better` than the baseline you were provided.
-
-The higher the `F1 score` the better.
-
-You can `trigger` the baseline pipeline `training` in the `second` section of the `dashboard`.
-
-Choose the `name` of the pipeline and whether you want to `serialize` it.
-
-![](./static/training.png)
-
-Click `Train pipeline` and wait until the training is done...
-
-![](./static/training_current.png)
-
-Once done, you will be able to see the F1 score as well as the confusion matrix.
-
-P.S: If you chose the `save option` at the beginning of the training, you will be able to see the serialized pipeline under `models/pipeline_name`
-
-![](./static/training_result.png)
-
-Hints: 
-- Make sure to change the training pipeline before you can trigger the training of your own from the dashboard.
-- Make sure to add a vectorization method to your pipeline if missing.
-- Your model must respect the abstraction used to build the baseline
-
-### 4 - Inference
-
-`Inference` is just a fancy word to say `prediction`.
-
-In the third section of the dashboard, you can `choose` different `resumes` and run the serialized pipeline against them.
-
-![](./static/inference.png)
-
-The example shows an inference for a Java Developer resume:
-
-![](./static/inference_done.png)
-
-In this section, you are asked to: 
-- Create an `endpoint` that allows you to `save` the prediction results into a `SQlite table`.
-- Display the `contents` of the SQlite table after each inference run.
-
-Hints: Think about using `SQLALchemy`
-
-### 5 - Unit testing
-
-As mentioned previously, your code should be unit tested. 
-
-Hints: Use `pytest` for your unit tests as well as `mocks` for external services.
-
-## Git Best Practices
-
-- **Write Meaningful Commit Messages**: Each commit message should be clear and concise, describing the changes made. Use the format:
-  ```
-  <type>: <short description>
-  ```
-  Examples:  
-  - `feat: add extraction task for ETL pipeline`  
-  - `fix: resolve bug in transform job schema`  
-  - `refactor: split ETL script into modular tasks`
-
-- **Commit Small, Logical Changes**: Avoid bundling unrelated changes in one commit.
-
-- **Review Before Committing**: Ensure clean and tested code before committing.
-- **...
-
-[This guide](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) provides detailed insights into writing better commit messages, branching strategies, and overall Git workflows.
-
